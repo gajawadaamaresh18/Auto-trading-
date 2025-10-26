@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Strategy Templates</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .demo-section h2 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+        
+        .feature-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .feature-card h3 {
+            color: #1f2937;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+        }
+        
+        .feature-card p {
+            color: #6b7280;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .api-endpoint {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .api-endpoint code {
+            background: #dbeafe;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        
+        .status-ready {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Trading Strategy Templates</h1>
+        <p>Modular system for cloneable strategy templates with paper trading and formula studio integration</p>
+    </div>
+    
+    <div class="container">
+        <div class="demo-section">
+            <h2>📊 System Overview</h2>
+            <p>This modular system provides a comprehensive solution for managing cloneable trading strategy templates. The system includes:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📋 Template Management</h3>
+                    <p>12+ pre-built trading strategies covering all major styles: trend following, mean reversion, momentum, pairs trading, and more.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🎯 Template Picker Component</h3>
+                    <p>Interactive React component with grid/list views, filtering, search, and action buttons for cloning, paper trading, and editing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🔧 Backend API</h3>
+                    <p>RESTful API endpoints for template CRUD operations, cloning, validation, and user-specific template management.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📈 Paper Trading Integration</h3>
+                    <p>One-click paper trading mode to test strategies without real money risk.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>⚙️ Formula Studio Integration</h3>
+                    <p>Direct integration with formula studio for advanced strategy customization and editing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🎨 Modern UI/UX</h3>
+                    <p>Responsive design with intuitive controls, risk level indicators, and comprehensive filtering options.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>🔌 API Endpoints</h2>
+            <p>The system provides comprehensive REST API endpoints for template management:</p>
+            
+            <div class="api-endpoint">
+                <strong>GET /api/templates</strong> <span class="status-badge status-ready">Ready</span>
+                <p>Retrieve all available strategy templates with filtering and search capabilities.</p>
+            </div>
+            
+            <div class="api-endpoint">
+                <strong>GET /api/templates/:id</strong> <span class="status-badge status-ready">Ready</span>
+                <p>Get a specific template by ID with full details and metadata.</p>
+            </div>
+            
+            <div class="api-endpoint">
+                <strong>POST /api/templates/clone</strong> <span class="status-badge status-ready">Ready</span>
+                <p>Clone an existing template for a user with optional customizations.</p>
+            </div>
+            
+            <div class="api-endpoint">
+                <strong>POST /api/templates/create-new-for-user</strong> <span class="status-badge status-ready">Ready</span>
+                <p>Create a new custom template for a specific user.</p>
+            </div>
+            
+            <div class="api-endpoint">
+                <strong>PUT /api/templates/:id</strong> <span class="status-badge status-ready">Ready</span>
+                <p>Update an existing template with new parameters or logic.</p>
+            </div>
+            
+            <div class="api-endpoint">
+                <strong>DELETE /api/templates/:id</strong> <span class="status-badge status-ready">Ready</span>
+                <p>Delete a template (with proper ownership verification).</p>
+            </div>
+            
+            <div class="api-endpoint">
+                <strong>POST /api/templates/validate</strong> <span class="status-badge status-ready">Ready</span>
+                <p>Validate template logic structure and parameters before saving.</p>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>📁 File Structure</h2>
+            <div class="code-block">
+/workspace/
+├── data/
+│   └── templateFormulas.json     # 12+ trading strategy templates
+├── components/
+│   ├── TemplatePicker.jsx        # React component for template selection
+│   └── TemplatePicker.css        # Styling for the component
+├── api/
+│   └── templates.js              # Express router for template endpoints
+├── public/
+│   └── index.html                # Demo page
+├── server.js                     # Main Express server
+└── package.json                  # Dependencies and scripts
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>🚀 Getting Started</h2>
+            <p>To run the system locally:</p>
+            <div class="code-block">
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+# Or start production server
+npm start
+            </div>
+            <p>The system will be available at <code>http://localhost:3000</code> with the API at <code>http://localhost:3000/api/templates</code></p>
+        </div>
+        
+        <div class="demo-section">
+            <h2>📊 Template Examples</h2>
+            <p>The system includes 12+ real trading strategy templates:</p>
+            <ul>
+                <li><strong>Moving Average Crossover</strong> - Classic trend-following strategy</li>
+                <li><strong>RSI Mean Reversion</strong> - Oversold/overbought signals</li>
+                <li><strong>Bollinger Bands Squeeze</strong> - Volatility breakout strategy</li>
+                <li><strong>Momentum Breakout</strong> - High-momentum stock breakouts</li>
+                <li><strong>Pairs Trading</strong> - Market-neutral correlated pairs</li>
+                <li><strong>MACD Divergence</strong> - Trend reversal signals</li>
+                <li><strong>Support/Resistance Bounce</strong> - Price action strategy</li>
+                <li><strong>Volatility Expansion</strong> - Options strategy for high VIX</li>
+                <li><strong>Earnings Play</strong> - Pre-earnings volatility strategy</li>
+                <li><strong>Sector Rotation</strong> - Macro sector rotation strategy</li>
+                <li><strong>Grid Trading</strong> - Systematic grid-based trading</li>
+                <li><strong>Arbitrage Scanner</strong> - Cross-exchange arbitrage</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
