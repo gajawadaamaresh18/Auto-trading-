@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres-test:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: trading_system_test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d trading_system_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-test:
+    image: redis:7
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend-test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    environment:
+      - DATABASE_URL=postgresql://test_user:test_password@postgres-test:5432/trading_system_test
+      - REDIS_URL=redis://redis-test:6379
+      - TESTING=true
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: python -m pytest tests/ -v --cov=app --cov-report=html --cov-report=term-missing
+
+  frontend-test:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.test
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm test -- --coverage --watchAll=false --ci
+
+volumes:
+  postgres_test_data:
