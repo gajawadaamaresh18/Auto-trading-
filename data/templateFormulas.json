@@ -1,0 +1,213 @@
+[
+  {
+    "templateName": "Moving Average Crossover",
+    "description": "Classic trend-following strategy using two moving averages. Buy when fast MA crosses above slow MA, sell when it crosses below.",
+    "serializedLogic": {
+      "type": "crossover",
+      "fastMA": 20,
+      "slowMA": 50,
+      "entryCondition": "fastMA > slowMA",
+      "exitCondition": "fastMA < slowMA",
+      "stopLoss": 0.02,
+      "takeProfit": 0.04
+    },
+    "winRate": 0.58,
+    "riskLevel": "Medium",
+    "assetType": "Stocks",
+    "recommendedUniverse": ["SPY", "QQQ", "IWM", "DIA"]
+  },
+  {
+    "templateName": "RSI Mean Reversion",
+    "description": "Mean reversion strategy using RSI oversold/overbought signals. Buy when RSI < 30, sell when RSI > 70.",
+    "serializedLogic": {
+      "type": "meanReversion",
+      "rsiPeriod": 14,
+      "oversoldThreshold": 30,
+      "overboughtThreshold": 70,
+      "entryCondition": "RSI < 30",
+      "exitCondition": "RSI > 70",
+      "stopLoss": 0.03,
+      "takeProfit": 0.06
+    },
+    "winRate": 0.52,
+    "riskLevel": "High",
+    "assetType": "Stocks",
+    "recommendedUniverse": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
+  },
+  {
+    "templateName": "Bollinger Bands Squeeze",
+    "description": "Volatility breakout strategy. Enter when Bollinger Bands squeeze (low volatility) and price breaks out.",
+    "serializedLogic": {
+      "type": "breakout",
+      "bbPeriod": 20,
+      "bbStdDev": 2,
+      "squeezeThreshold": 0.1,
+      "entryCondition": "price > upperBB AND volatility < squeezeThreshold",
+      "exitCondition": "price < middleBB",
+      "stopLoss": 0.025,
+      "takeProfit": 0.05
+    },
+    "winRate": 0.61,
+    "riskLevel": "Medium",
+    "assetType": "Stocks",
+    "recommendedUniverse": ["SPY", "QQQ", "IWM", "VTI"]
+  },
+  {
+    "templateName": "Momentum Breakout",
+    "description": "High-momentum stocks breaking out of consolidation patterns with volume confirmation.",
+    "serializedLogic": {
+      "type": "momentum",
+      "lookbackPeriod": 20,
+      "volumeMultiplier": 1.5,
+      "priceThreshold": 0.02,
+      "entryCondition": "price > max(high, 20) AND volume > avg(volume, 20) * 1.5",
+      "exitCondition": "price < sma(close, 10)",
+      "stopLoss": 0.03,
+      "takeProfit": 0.08
+    },
+    "winRate": 0.55,
+    "riskLevel": "High",
+    "assetType": "Stocks",
+    "recommendedUniverse": ["Growth stocks", "Small caps", "Tech sector"]
+  },
+  {
+    "templateName": "Pairs Trading",
+    "description": "Market-neutral strategy trading correlated pairs. Buy the underperformer, sell the outperformer.",
+    "serializedLogic": {
+      "type": "pairs",
+      "correlationPeriod": 60,
+      "zScoreThreshold": 2,
+      "entryCondition": "zScore > 2 OR zScore < -2",
+      "exitCondition": "zScore between -0.5 and 0.5",
+      "stopLoss": 0.04,
+      "takeProfit": 0.02
+    },
+    "winRate": 0.63,
+    "riskLevel": "Low",
+    "assetType": "Stocks",
+    "recommendedUniverse": ["Sector pairs", "Index pairs", "Correlated stocks"]
+  },
+  {
+    "templateName": "MACD Divergence",
+    "description": "Trend reversal strategy using MACD divergence signals. Enter when price and MACD diverge.",
+    "serializedLogic": {
+      "type": "divergence",
+      "macdFast": 12,
+      "macdSlow": 26,
+      "macdSignal": 9,
+      "divergenceLookback": 20,
+      "entryCondition": "price makes new high AND MACD makes lower high",
+      "exitCondition": "MACD crosses signal line",
+      "stopLoss": 0.035,
+      "takeProfit": 0.07
+    },
+    "winRate": 0.49,
+    "riskLevel": "High",
+    "assetType": "Stocks",
+    "recommendedUniverse": ["Large caps", "Index ETFs", "Sector ETFs"]
+  },
+  {
+    "templateName": "Support/Resistance Bounce",
+    "description": "Price action strategy trading bounces off key support and resistance levels.",
+    "serializedLogic": {
+      "type": "supportResistance",
+      "lookbackPeriod": 50,
+      "touchesRequired": 2,
+      "bounceThreshold": 0.005,
+      "entryCondition": "price bounces off support/resistance with confirmation",
+      "exitCondition": "price breaks through level",
+      "stopLoss": 0.02,
+      "takeProfit": 0.04
+    },
+    "winRate": 0.57,
+    "riskLevel": "Medium",
+    "assetType": "Stocks",
+    "recommendedUniverse": ["Individual stocks", "Active trading pairs"]
+  },
+  {
+    "templateName": "Volatility Expansion",
+    "description": "Options strategy for high volatility environments. Enter when VIX spikes and mean reverts.",
+    "serializedLogic": {
+      "type": "volatility",
+      "vixThreshold": 25,
+      "meanReversionPeriod": 10,
+      "entryCondition": "VIX > 25 AND VIX < VIX_MA_10",
+      "exitCondition": "VIX < 20",
+      "stopLoss": 0.05,
+      "takeProfit": 0.03
+    },
+    "winRate": 0.59,
+    "riskLevel": "High",
+    "assetType": "Options",
+    "recommendedUniverse": ["SPY options", "QQQ options", "VIX products"]
+  },
+  {
+    "templateName": "Earnings Play",
+    "description": "Pre-earnings volatility strategy. Enter before earnings, exit after announcement.",
+    "serializedLogic": {
+      "type": "earnings",
+      "daysBeforeEarnings": 3,
+      "volatilityThreshold": 0.3,
+      "entryCondition": "days_to_earnings <= 3 AND implied_vol > 0.3",
+      "exitCondition": "earnings_announced OR days_to_earnings > 0",
+      "stopLoss": 0.08,
+      "takeProfit": 0.15
+    },
+    "winRate": 0.45,
+    "riskLevel": "Very High",
+    "assetType": "Options",
+    "recommendedUniverse": ["Earnings calendar stocks", "High beta stocks"]
+  },
+  {
+    "templateName": "Sector Rotation",
+    "description": "Macro strategy rotating between sectors based on economic cycles and relative strength.",
+    "serializedLogic": {
+      "type": "sectorRotation",
+      "lookbackPeriod": 20,
+      "relativeStrengthThreshold": 0.02,
+      "entryCondition": "sector_rs > threshold AND economic_cycle_favorable",
+      "exitCondition": "sector_rs < -threshold",
+      "stopLoss": 0.04,
+      "takeProfit": 0.08
+    },
+    "winRate": 0.54,
+    "riskLevel": "Medium",
+    "assetType": "ETFs",
+    "recommendedUniverse": ["Sector ETFs", "Style ETFs", "Country ETFs"]
+  },
+  {
+    "templateName": "Grid Trading",
+    "description": "Systematic strategy placing buy/sell orders at regular intervals. Profits from price oscillations.",
+    "serializedLogic": {
+      "type": "grid",
+      "gridSize": 0.01,
+      "gridLevels": 10,
+      "maxPosition": 1000,
+      "entryCondition": "price at grid level",
+      "exitCondition": "opposite grid level hit",
+      "stopLoss": 0.05,
+      "takeProfit": 0.02
+    },
+    "winRate": 0.67,
+    "riskLevel": "Low",
+    "assetType": "Forex",
+    "recommendedUniverse": ["Major forex pairs", "Crypto pairs", "Range-bound assets"]
+  },
+  {
+    "templateName": "Arbitrage Scanner",
+    "description": "Cross-exchange arbitrage opportunities. Buy low on one exchange, sell high on another.",
+    "serializedLogic": {
+      "type": "arbitrage",
+      "minSpread": 0.001,
+      "maxSlippage": 0.0005,
+      "entryCondition": "price_difference > minSpread AND liquidity_sufficient",
+      "exitCondition": "arbitrage_closed",
+      "stopLoss": 0.002,
+      "takeProfit": 0.001
+    },
+    "winRate": 0.89,
+    "riskLevel": "Very Low",
+    "assetType": "Crypto",
+    "recommendedUniverse": ["Major crypto exchanges", "Liquid pairs"]
+  }
+]
