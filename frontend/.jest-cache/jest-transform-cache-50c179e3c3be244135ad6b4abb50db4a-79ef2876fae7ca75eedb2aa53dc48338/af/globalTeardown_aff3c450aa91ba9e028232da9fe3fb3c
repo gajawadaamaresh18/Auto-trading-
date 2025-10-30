@@ -1,0 +1,31 @@
+66fdd65dc8e4375de2c787f88d1cba22
+"use strict";
+/**
+ * Global Test Teardown
+ *
+ * Global teardown for Jest tests including cleanup operations.
+ */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = globalTeardown;
+// Global test teardown
+function globalTeardown() {
+    return __awaiter(this, void 0, void 0, function* () {
+        // Clean up any global resources
+        // Close any open handles
+        // Clear any global state
+        // Force garbage collection if available
+        if (global.gc) {
+            global.gc();
+        }
+    });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxkZWxsXFxEb2N1bWVudHNcXEFtYXJlc2hcXEF1dG8tdHJhZGluZy1cXEF1dG8tdHJhZGluZy1cXGZyb250ZW5kXFxzcmNcXF9fdGVzdHNfX1xcZ2xvYmFsVGVhcmRvd24udHMiLCJtYXBwaW5ncyI6IjtBQUFBOzs7O0dBSUc7Ozs7Ozs7Ozs7O0FBR0gsaUNBU0M7QUFWRCx1QkFBdUI7QUFDdkIsU0FBOEIsY0FBYzs7UUFDMUMsZ0NBQWdDO1FBQ2hDLHlCQUF5QjtRQUN6Qix5QkFBeUI7UUFFekIsd0NBQXdDO1FBQ3hDLElBQUksTUFBTSxDQUFDLEVBQUUsRUFBRSxDQUFDO1lBQ2QsTUFBTSxDQUFDLEVBQUUsRUFBRSxDQUFDO1FBQ2QsQ0FBQztJQUNILENBQUM7Q0FBQSIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXGRlbGxcXERvY3VtZW50c1xcQW1hcmVzaFxcQXV0by10cmFkaW5nLVxcQXV0by10cmFkaW5nLVxcZnJvbnRlbmRcXHNyY1xcX190ZXN0c19fXFxnbG9iYWxUZWFyZG93bi50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogR2xvYmFsIFRlc3QgVGVhcmRvd25cclxuICogXHJcbiAqIEdsb2JhbCB0ZWFyZG93biBmb3IgSmVzdCB0ZXN0cyBpbmNsdWRpbmcgY2xlYW51cCBvcGVyYXRpb25zLlxyXG4gKi9cclxuXHJcbi8vIEdsb2JhbCB0ZXN0IHRlYXJkb3duXHJcbmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIGdsb2JhbFRlYXJkb3duKCkge1xyXG4gIC8vIENsZWFuIHVwIGFueSBnbG9iYWwgcmVzb3VyY2VzXHJcbiAgLy8gQ2xvc2UgYW55IG9wZW4gaGFuZGxlc1xyXG4gIC8vIENsZWFyIGFueSBnbG9iYWwgc3RhdGVcclxuICBcclxuICAvLyBGb3JjZSBnYXJiYWdlIGNvbGxlY3Rpb24gaWYgYXZhaWxhYmxlXHJcbiAgaWYgKGdsb2JhbC5nYykge1xyXG4gICAgZ2xvYmFsLmdjKCk7XHJcbiAgfVxyXG59XHJcbiJdLCJ2ZXJzaW9uIjozfQ==

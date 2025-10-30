@@ -1,0 +1,773 @@
+/**
+ * Template Formulas Library
+ * 
+ * Comprehensive collection of starter trading formulas covering various strategies
+ * and market conditions. Each template includes complete configuration and sample stats.
+ */
+
+export interface TemplateFormula {
+  id: string;
+  name: string;
+  description: string;
+  useCase: string;
+  category: 'momentum' | 'reversal' | 'mean_reversion' | 'breakout' | 'options' | 'sector_scan' | 'arbitrage' | 'volatility';
+  assetClass: 'equity' | 'futures' | 'options' | 'nifty' | 'banknifty' | 'sector';
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  
+  // Strategy Configuration
+  indicators: {
+    primary: string[];
+    secondary: string[];
+    confirmation: string[];
+  };
+  
+  logicBlocks: {
+    entry: string[];
+    exit: string[];
+    riskManagement: string[];
+  };
+  
+  // Sample Performance Stats
+  sampleStats: {
+    winRate: number;
+    avgWin: number;
+    avgLoss: number;
+    profitFactor: number;
+    maxDrawdown: number;
+    sharpeRatio: number;
+    totalTrades: number;
+    avgHoldingPeriod: string;
+    bestMonth: number;
+    worstMonth: number;
+  };
+  
+  // Risk Parameters
+  riskParams: {
+    stopLoss: number;
+    takeProfit: number;
+    positionSize: number;
+    maxRiskPerTrade: number;
+  };
+  
+  // Market Conditions
+  marketConditions: {
+    trending: boolean;
+    sideways: boolean;
+    volatile: boolean;
+    lowVolatility: boolean;
+  };
+  
+  // Additional Info
+  tags: string[];
+  author: string;
+  version: string;
+  lastUpdated: string;
+  isPopular: boolean;
+  isVerified: boolean;
+}
+
+export const TEMPLATE_FORMULAS: TemplateFormula[] = [
+  {
+    id: 'momentum_breakout',
+    name: 'Momentum Breakout Strategy',
+    description: 'Captures strong momentum moves after price breaks above resistance with volume confirmation.',
+    useCase: 'Ideal for trending markets with clear support/resistance levels. Best used on daily timeframes.',
+    category: 'momentum',
+    assetClass: 'equity',
+    difficulty: 'beginner',
+    
+    indicators: {
+      primary: ['SMA_20', 'SMA_50', 'VOLUME'],
+      secondary: ['RSI_14', 'MACD'],
+      confirmation: ['BOLLINGER_BANDS', 'ATR']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'Price > SMA_20',
+        'Price > SMA_50',
+        'Volume > Average_Volume * 1.5',
+        'Price breaks above resistance',
+        'RSI < 70 (not overbought)'
+      ],
+      exit: [
+        'Price < SMA_20',
+        'RSI > 80 (overbought)',
+        'Volume < Average_Volume * 0.8'
+      ],
+      riskManagement: [
+        'Stop Loss: 2% below entry',
+        'Take Profit: 4% above entry',
+        'Position Size: 2% of portfolio'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 68.5,
+      avgWin: 3.2,
+      avgLoss: -1.8,
+      profitFactor: 1.85,
+      maxDrawdown: -8.2,
+      sharpeRatio: 1.42,
+      totalTrades: 156,
+      avgHoldingPeriod: '3-5 days',
+      bestMonth: 12.4,
+      worstMonth: -5.8
+    },
+    
+    riskParams: {
+      stopLoss: 2.0,
+      takeProfit: 4.0,
+      positionSize: 2.0,
+      maxRiskPerTrade: 1.0
+    },
+    
+    marketConditions: {
+      trending: true,
+      sideways: false,
+      volatile: true,
+      lowVolatility: false
+    },
+    
+    tags: ['momentum', 'breakout', 'volume', 'trending'],
+    author: 'FormulaTrader Team',
+    version: '1.2.0',
+    lastUpdated: '2024-01-15',
+    isPopular: true,
+    isVerified: true
+  },
+
+  {
+    id: 'rsi_reversal',
+    name: 'RSI Divergence Reversal',
+    description: 'Identifies potential trend reversals using RSI divergence patterns with price action confirmation.',
+    useCase: 'Effective in ranging markets and at key support/resistance levels. Works well on 1H-4H timeframes.',
+    category: 'reversal',
+    assetClass: 'equity',
+    difficulty: 'intermediate',
+    
+    indicators: {
+      primary: ['RSI_14', 'PRICE_ACTION'],
+      secondary: ['MACD', 'STOCHASTIC'],
+      confirmation: ['SUPPORT_RESISTANCE', 'VOLUME']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'RSI < 30 (oversold)',
+        'Price touches support level',
+        'RSI divergence with price',
+        'Volume spike on reversal',
+        'MACD shows bullish crossover'
+      ],
+      exit: [
+        'RSI > 70 (overbought)',
+        'Price reaches resistance',
+        'MACD shows bearish crossover'
+      ],
+      riskManagement: [
+        'Stop Loss: 1.5% below support',
+        'Take Profit: 3% above entry',
+        'Position Size: 1.5% of portfolio'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 72.3,
+      avgWin: 2.8,
+      avgLoss: -1.4,
+      profitFactor: 2.1,
+      maxDrawdown: -6.5,
+      sharpeRatio: 1.68,
+      totalTrades: 89,
+      avgHoldingPeriod: '2-4 days',
+      bestMonth: 9.8,
+      worstMonth: -4.2
+    },
+    
+    riskParams: {
+      stopLoss: 1.5,
+      takeProfit: 3.0,
+      positionSize: 1.5,
+      maxRiskPerTrade: 0.8
+    },
+    
+    marketConditions: {
+      trending: false,
+      sideways: true,
+      volatile: true,
+      lowVolatility: false
+    },
+    
+    tags: ['reversal', 'rsi', 'divergence', 'support_resistance'],
+    author: 'QuantPro',
+    version: '2.1.0',
+    lastUpdated: '2024-01-20',
+    isPopular: true,
+    isVerified: true
+  },
+
+  {
+    id: 'bollinger_mean_reversion',
+    name: 'Bollinger Bands Mean Reversion',
+    description: 'Trades price reversions to the mean using Bollinger Bands with momentum confirmation.',
+    useCase: 'Best in sideways markets with clear mean reversion patterns. Optimal on 15M-1H timeframes.',
+    category: 'mean_reversion',
+    assetClass: 'equity',
+    difficulty: 'beginner',
+    
+    indicators: {
+      primary: ['BOLLINGER_BANDS_20', 'SMA_20'],
+      secondary: ['RSI_14', 'MACD'],
+      confirmation: ['VOLUME', 'ATR']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'Price touches lower Bollinger Band',
+        'RSI < 35 (oversold)',
+        'Volume > Average_Volume',
+        'Price bounces off support',
+        'MACD histogram turning positive'
+      ],
+      exit: [
+        'Price reaches middle Bollinger Band',
+        'RSI > 65 (overbought)',
+        'Price touches upper Bollinger Band'
+      ],
+      riskManagement: [
+        'Stop Loss: 1% below lower band',
+        'Take Profit: 2% above entry',
+        'Position Size: 1% of portfolio'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 74.2,
+      avgWin: 1.8,
+      avgLoss: -1.2,
+      profitFactor: 1.95,
+      maxDrawdown: -4.8,
+      sharpeRatio: 1.52,
+      totalTrades: 203,
+      avgHoldingPeriod: '1-3 days',
+      bestMonth: 8.2,
+      worstMonth: -3.1
+    },
+    
+    riskParams: {
+      stopLoss: 1.0,
+      takeProfit: 2.0,
+      positionSize: 1.0,
+      maxRiskPerTrade: 0.5
+    },
+    
+    marketConditions: {
+      trending: false,
+      sideways: true,
+      volatile: false,
+      lowVolatility: true
+    },
+    
+    tags: ['mean_reversion', 'bollinger_bands', 'oversold', 'sideways'],
+    author: 'MeanReversion Pro',
+    version: '1.5.0',
+    lastUpdated: '2024-01-18',
+    isPopular: true,
+    isVerified: true
+  },
+
+  {
+    id: 'volume_breakout',
+    name: 'Volume Breakout Strategy',
+    description: 'Identifies high-probability breakouts using volume analysis and price action patterns.',
+    useCase: 'Excellent for catching major moves in trending markets. Works best on daily timeframes.',
+    category: 'breakout',
+    assetClass: 'equity',
+    difficulty: 'intermediate',
+    
+    indicators: {
+      primary: ['VOLUME', 'PRICE_ACTION', 'SUPPORT_RESISTANCE'],
+      secondary: ['RSI_14', 'MACD', 'ATR'],
+      confirmation: ['MOVING_AVERAGES', 'VOLUME_PROFILE']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'Price breaks above resistance',
+        'Volume > Average_Volume * 2',
+        'Volume > Previous_High_Volume',
+        'RSI between 40-70',
+        'Price closes above breakout level'
+      ],
+      exit: [
+        'Price falls back below breakout level',
+        'Volume drops below average',
+        'RSI > 80 (overbought)'
+      ],
+      riskManagement: [
+        'Stop Loss: 2.5% below breakout level',
+        'Take Profit: 6% above entry',
+        'Position Size: 2.5% of portfolio'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 65.8,
+      avgWin: 4.2,
+      avgLoss: -2.1,
+      profitFactor: 1.92,
+      maxDrawdown: -9.5,
+      sharpeRatio: 1.38,
+      totalTrades: 127,
+      avgHoldingPeriod: '5-8 days',
+      bestMonth: 15.6,
+      worstMonth: -7.2
+    },
+    
+    riskParams: {
+      stopLoss: 2.5,
+      takeProfit: 6.0,
+      positionSize: 2.5,
+      maxRiskPerTrade: 1.2
+    },
+    
+    marketConditions: {
+      trending: true,
+      sideways: false,
+      volatile: true,
+      lowVolatility: false
+    },
+    
+    tags: ['breakout', 'volume', 'resistance', 'trending'],
+    author: 'VolumeMaster',
+    version: '2.0.0',
+    lastUpdated: '2024-01-22',
+    isPopular: true,
+    isVerified: true
+  },
+
+  {
+    id: 'nifty_options_selling',
+    name: 'Nifty Options Selling Strategy',
+    description: 'Systematic options selling strategy using volatility and time decay for consistent income.',
+    useCase: 'Designed for Nifty index options. Best in low volatility environments with stable trends.',
+    category: 'options',
+    assetClass: 'options',
+    difficulty: 'advanced',
+    
+    indicators: {
+      primary: ['VIX', 'NIFTY_LEVELS', 'OPTIONS_GREEKS'],
+      secondary: ['RSI_14', 'MACD', 'VOLUME'],
+      confirmation: ['SUPPORT_RESISTANCE', 'TREND_ANALYSIS']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'VIX < 20 (low volatility)',
+        'Nifty near support/resistance',
+        'Sell OTM puts/calls',
+        'Time to expiry > 15 days',
+        'Delta < 0.3 for safety'
+      ],
+      exit: [
+        'Profit target: 50% of premium',
+        'Stop loss: 200% of premium',
+        'Time decay: 7 days to expiry',
+        'VIX spike > 25'
+      ],
+      riskManagement: [
+        'Position Size: 1% per trade',
+        'Max 5 positions at once',
+        'Hedge with futures if needed',
+        'Close on adverse movement'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 78.5,
+      avgWin: 1.2,
+      avgLoss: -2.8,
+      profitFactor: 1.65,
+      maxDrawdown: -12.3,
+      sharpeRatio: 1.25,
+      totalTrades: 89,
+      avgHoldingPeriod: '10-15 days',
+      bestMonth: 6.8,
+      worstMonth: -8.5
+    },
+    
+    riskParams: {
+      stopLoss: 200.0,
+      takeProfit: 50.0,
+      positionSize: 1.0,
+      maxRiskPerTrade: 2.0
+    },
+    
+    marketConditions: {
+      trending: true,
+      sideways: true,
+      volatile: false,
+      lowVolatility: true
+    },
+    
+    tags: ['options', 'nifty', 'selling', 'volatility', 'income'],
+    author: 'OptionsGuru',
+    version: '3.1.0',
+    lastUpdated: '2024-01-25',
+    isPopular: false,
+    isVerified: true
+  },
+
+  {
+    id: 'sector_rotation',
+    name: 'Sector Rotation Scanner',
+    description: 'Identifies sector rotation opportunities using relative strength and momentum analysis.',
+    useCase: 'Perfect for identifying leading sectors and rotation patterns. Works on weekly timeframes.',
+    category: 'sector_scan',
+    assetClass: 'sector',
+    difficulty: 'intermediate',
+    
+    indicators: {
+      primary: ['RELATIVE_STRENGTH', 'SECTOR_MOMENTUM'],
+      secondary: ['RSI_14', 'MACD', 'VOLUME'],
+      confirmation: ['TREND_ANALYSIS', 'VOLATILITY']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'Sector RS > Market RS',
+        'Sector momentum > 0',
+        'Volume > Average_Volume',
+        'RSI between 40-70',
+        'Sector breaks above resistance'
+      ],
+      exit: [
+        'Sector RS < Market RS',
+        'Momentum turns negative',
+        'Volume drops significantly',
+        'RSI > 80 (overbought)'
+      ],
+      riskManagement: [
+        'Stop Loss: 3% below entry',
+        'Take Profit: 8% above entry',
+        'Position Size: 3% per sector',
+        'Max 3 sectors at once'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 71.2,
+      avgWin: 5.8,
+      avgLoss: -2.9,
+      profitFactor: 2.15,
+      maxDrawdown: -11.2,
+      sharpeRatio: 1.58,
+      totalTrades: 67,
+      avgHoldingPeriod: '2-4 weeks',
+      bestMonth: 18.4,
+      worstMonth: -6.8
+    },
+    
+    riskParams: {
+      stopLoss: 3.0,
+      takeProfit: 8.0,
+      positionSize: 3.0,
+      maxRiskPerTrade: 1.5
+    },
+    
+    marketConditions: {
+      trending: true,
+      sideways: false,
+      volatile: true,
+      lowVolatility: false
+    },
+    
+    tags: ['sector', 'rotation', 'relative_strength', 'momentum'],
+    author: 'SectorMaster',
+    version: '2.3.0',
+    lastUpdated: '2024-01-28',
+    isPopular: true,
+    isVerified: true
+  },
+
+  {
+    id: 'volatility_expansion',
+    name: 'Volatility Expansion Strategy',
+    description: 'Captures moves during volatility expansion using ATR and Bollinger Band width analysis.',
+    useCase: 'Effective during earnings seasons and major news events. Works on 1H-4H timeframes.',
+    category: 'volatility',
+    assetClass: 'equity',
+    difficulty: 'advanced',
+    
+    indicators: {
+      primary: ['ATR_14', 'BOLLINGER_WIDTH', 'VIX'],
+      secondary: ['RSI_14', 'MACD', 'VOLUME'],
+      confirmation: ['PRICE_ACTION', 'SUPPORT_RESISTANCE']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'ATR > Average_ATR * 1.5',
+        'Bollinger Width expanding',
+        'VIX > 20 (increasing)',
+        'Price breaks key level',
+        'Volume > Average_Volume * 1.5'
+      ],
+      exit: [
+        'ATR < Average_ATR',
+        'Bollinger Width contracting',
+        'VIX < 15 (decreasing)',
+        'Price reaches target'
+      ],
+      riskManagement: [
+        'Stop Loss: 2% below entry',
+        'Take Profit: 5% above entry',
+        'Position Size: 2% of portfolio',
+        'Close on volatility contraction'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 69.8,
+      avgWin: 3.8,
+      avgLoss: -2.2,
+      profitFactor: 1.78,
+      maxDrawdown: -10.5,
+      sharpeRatio: 1.45,
+      totalTrades: 94,
+      avgHoldingPeriod: '3-6 days',
+      bestMonth: 14.2,
+      worstMonth: -7.8
+    },
+    
+    riskParams: {
+      stopLoss: 2.0,
+      takeProfit: 5.0,
+      positionSize: 2.0,
+      maxRiskPerTrade: 1.0
+    },
+    
+    marketConditions: {
+      trending: true,
+      sideways: false,
+      volatile: true,
+      lowVolatility: false
+    },
+    
+    tags: ['volatility', 'atr', 'expansion', 'earnings', 'news'],
+    author: 'VolatilityPro',
+    version: '1.8.0',
+    lastUpdated: '2024-01-30',
+    isPopular: false,
+    isVerified: true
+  },
+
+  {
+    id: 'golden_cross',
+    name: 'Golden Cross Strategy',
+    description: 'Classic trend-following strategy using moving average crossovers with volume confirmation.',
+    useCase: 'Reliable for long-term trend identification. Best used on daily timeframes for swing trading.',
+    category: 'momentum',
+    assetClass: 'equity',
+    difficulty: 'beginner',
+    
+    indicators: {
+      primary: ['SMA_50', 'SMA_200'],
+      secondary: ['VOLUME', 'RSI_14'],
+      confirmation: ['MACD', 'TREND_LINES']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'SMA_50 crosses above SMA_200',
+        'Volume > Average_Volume',
+        'RSI between 40-70',
+        'Price above both MAs',
+        'MACD bullish crossover'
+      ],
+      exit: [
+        'SMA_50 crosses below SMA_200',
+        'Price below SMA_50',
+        'RSI > 80 (overbought)',
+        'MACD bearish crossover'
+      ],
+      riskManagement: [
+        'Stop Loss: 3% below SMA_50',
+        'Take Profit: 10% above entry',
+        'Position Size: 3% of portfolio'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 62.4,
+      avgWin: 6.8,
+      avgLoss: -3.2,
+      profitFactor: 1.72,
+      maxDrawdown: -15.8,
+      sharpeRatio: 1.28,
+      totalTrades: 45,
+      avgHoldingPeriod: '2-6 weeks',
+      bestMonth: 22.4,
+      worstMonth: -9.2
+    },
+    
+    riskParams: {
+      stopLoss: 3.0,
+      takeProfit: 10.0,
+      positionSize: 3.0,
+      maxRiskPerTrade: 1.5
+    },
+    
+    marketConditions: {
+      trending: true,
+      sideways: false,
+      volatile: false,
+      lowVolatility: true
+    },
+    
+    tags: ['golden_cross', 'moving_averages', 'trend', 'swing_trading'],
+    author: 'TrendMaster',
+    version: '1.0.0',
+    lastUpdated: '2024-01-12',
+    isPopular: true,
+    isVerified: true
+  },
+
+  {
+    id: 'pairs_arbitrage',
+    name: 'Pairs Trading Arbitrage',
+    description: 'Statistical arbitrage strategy using cointegrated pairs with mean reversion logic.',
+    useCase: 'Ideal for market-neutral strategies. Works best with highly correlated stocks in same sector.',
+    category: 'arbitrage',
+    assetClass: 'equity',
+    difficulty: 'advanced',
+    
+    indicators: {
+      primary: ['CORRELATION', 'SPREAD_ANALYSIS', 'Z_SCORE'],
+      secondary: ['RSI_14', 'VOLUME', 'ATR'],
+      confirmation: ['COINTEGRATION', 'STATISTICAL_SIGNALS']
+    },
+    
+    logicBlocks: {
+      entry: [
+        'Z-Score > 2 (spread too wide)',
+        'Correlation > 0.7',
+        'Volume > Average_Volume',
+        'Spread > 2 standard deviations',
+        'Both stocks in same sector'
+      ],
+      exit: [
+        'Z-Score < 0 (spread normalized)',
+        'Correlation drops < 0.5',
+        'Stop loss: Z-Score > 3',
+        'Take profit: Z-Score < -1'
+      ],
+      riskManagement: [
+        'Stop Loss: 2% on each leg',
+        'Take Profit: 1.5% on each leg',
+        'Position Size: 1% per leg',
+        'Max correlation risk'
+      ]
+    },
+    
+    sampleStats: {
+      winRate: 76.8,
+      avgWin: 1.5,
+      avgLoss: -1.8,
+      profitFactor: 1.82,
+      maxDrawdown: -6.2,
+      sharpeRatio: 1.65,
+      totalTrades: 156,
+      avgHoldingPeriod: '5-10 days',
+      bestMonth: 8.4,
+      worstMonth: -3.8
+    },
+    
+    riskParams: {
+      stopLoss: 2.0,
+      takeProfit: 1.5,
+      positionSize: 1.0,
+      maxRiskPerTrade: 0.8
+    },
+    
+    marketConditions: {
+      trending: false,
+      sideways: true,
+      volatile: false,
+      lowVolatility: true
+    },
+    
+    tags: ['pairs_trading', 'arbitrage', 'statistical', 'market_neutral'],
+    author: 'ArbitragePro',
+    version: '2.5.0',
+    lastUpdated: '2024-02-01',
+    isPopular: false,
+    isVerified: true
+  }
+];
+
+// Utility Functions
+export const getTemplateById = (id: string): TemplateFormula | undefined => {
+  return TEMPLATE_FORMULAS.find(template => template.id === id);
+};
+
+export const getTemplatesByCategory = (category: string): TemplateFormula[] => {
+  return TEMPLATE_FORMULAS.filter(template => template.category === category);
+};
+
+export const getTemplatesByDifficulty = (difficulty: string): TemplateFormula[] => {
+  return TEMPLATE_FORMULAS.filter(template => template.difficulty === difficulty);
+};
+
+export const getTemplatesByAssetClass = (assetClass: string): TemplateFormula[] => {
+  return TEMPLATE_FORMULAS.filter(template => template.assetClass === assetClass);
+};
+
+export const getPopularTemplates = (): TemplateFormula[] => {
+  return TEMPLATE_FORMULAS.filter(template => template.isPopular);
+};
+
+export const getVerifiedTemplates = (): TemplateFormula[] => {
+  return TEMPLATE_FORMULAS.filter(template => template.isVerified);
+};
+
+export const searchTemplates = (query: string): TemplateFormula[] => {
+  const lowercaseQuery = query.toLowerCase();
+  return TEMPLATE_FORMULAS.filter(template => 
+    template.name.toLowerCase().includes(lowercaseQuery) ||
+    template.description.toLowerCase().includes(lowercaseQuery) ||
+    template.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery))
+  );
+};
+
+// Template Categories
+export const TEMPLATE_CATEGORIES = [
+  { key: 'momentum', label: 'Momentum', icon: 'trending-up', color: '#10B981' },
+  { key: 'reversal', label: 'Reversal', icon: 'refresh', color: '#F59E0B' },
+  { key: 'mean_reversion', label: 'Mean Reversion', icon: 'swap-horizontal', color: '#8B5CF6' },
+  { key: 'breakout', label: 'Breakout', icon: 'arrow-up', color: '#EF4444' },
+  { key: 'options', label: 'Options', icon: 'options', color: '#06B6D4' },
+  { key: 'sector_scan', label: 'Sector Scan', icon: 'business', color: '#84CC16' },
+  { key: 'arbitrage', label: 'Arbitrage', icon: 'balance-scale', color: '#F97316' },
+  { key: 'volatility', label: 'Volatility', icon: 'pulse', color: '#EC4899' },
+];
+
+// Difficulty Levels
+export const DIFFICULTY_LEVELS = [
+  { key: 'beginner', label: 'Beginner', color: '#10B981', description: 'Easy to understand and implement' },
+  { key: 'intermediate', label: 'Intermediate', color: '#F59E0B', description: 'Requires some trading knowledge' },
+  { key: 'advanced', label: 'Advanced', color: '#EF4444', description: 'Complex strategies for experienced traders' },
+];
+
+// Asset Classes
+export const ASSET_CLASSES = [
+  { key: 'equity', label: 'Equity', icon: 'trending-up' },
+  { key: 'futures', label: 'Futures', icon: 'swap-horizontal' },
+  { key: 'options', label: 'Options', icon: 'options' },
+  { key: 'nifty', label: 'Nifty', icon: 'bar-chart' },
+  { key: 'banknifty', label: 'Bank Nifty', icon: 'business' },
+  { key: 'sector', label: 'Sector', icon: 'layers' },
+];
+
+export default TEMPLATE_FORMULAS;

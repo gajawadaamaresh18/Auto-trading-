@@ -1,10 +1,10 @@
 # Stock Trading Marketplace App - Directory Structure
 
 ```
-trading-marketplace/
-├── mobile-app/                          # React Native Frontend
+Auto-trading/
+├── frontend/                          # React Native (TypeScript) Frontend
 │   ├── src/
-│   │   ├── screens/                     # Screen components
+│   │   ├── screens/                  # Screen components
 │   │   │   ├── auth/
 │   │   │   │   ├── LoginScreen.tsx
 │   │   │   │   ├── RegisterScreen.tsx
@@ -15,17 +15,12 @@ trading-marketplace/
 │   │   │   │   └── WatchlistScreen.tsx
 │   │   │   ├── trading/
 │   │   │   │   ├── TradingScreen.tsx
-│   │   │   │   ├── OrderScreen.tsx
-│   │   │   │   ├── OrderHistoryScreen.tsx
-│   │   │   │   └── PositionScreen.tsx
+│   │   │   │   ├── OrderBookScreen.tsx
+│   │   │   │   └── TradeHistoryScreen.tsx
 │   │   │   ├── formulas/
 │   │   │   │   ├── FormulaBuilderScreen.tsx
 │   │   │   │   ├── FormulaLibraryScreen.tsx
 │   │   │   │   └── FormulaBacktestScreen.tsx
-│   │   │   ├── market/
-│   │   │   │   ├── MarketDataScreen.tsx
-│   │   │   │   ├── StockDetailScreen.tsx
-│   │   │   │   └── NewsScreen.tsx
 │   │   │   ├── settings/
 │   │   │   │   ├── SettingsScreen.tsx
 │   │   │   │   ├── BrokerSettingsScreen.tsx
@@ -33,42 +28,40 @@ trading-marketplace/
 │   │   │   └── profile/
 │   │   │       ├── ProfileScreen.tsx
 │   │   │       └── AccountScreen.tsx
-│   │   ├── components/                  # Reusable UI components
+│   │   ├── components/               # Reusable UI components
 │   │   │   ├── common/
 │   │   │   │   ├── Button.tsx
 │   │   │   │   ├── Input.tsx
 │   │   │   │   ├── Card.tsx
 │   │   │   │   ├── Modal.tsx
-│   │   │   │   ├── LoadingSpinner.tsx
-│   │   │   │   └── ErrorBoundary.tsx
+│   │   │   │   └── LoadingSpinner.tsx
 │   │   │   ├── trading/
-│   │   │   │   ├── OrderForm.tsx
-│   │   │   │   ├── PositionCard.tsx
-│   │   │   │   ├── PnLChart.tsx
-│   │   │   │   └── OrderBook.tsx
-│   │   │   ├── market/
 │   │   │   │   ├── StockCard.tsx
 │   │   │   │   ├── PriceChart.tsx
-│   │   │   │   ├── MarketDepth.tsx
-│   │   │   │   └── NewsCard.tsx
+│   │   │   │   ├── OrderForm.tsx
+│   │   │   │   ├── OrderBook.tsx
+│   │   │   │   └── TradeHistory.tsx
 │   │   │   ├── formulas/
 │   │   │   │   ├── FormulaCard.tsx
 │   │   │   │   ├── FormulaBuilder.tsx
-│   │   │   │   ├── IndicatorSelector.tsx
+│   │   │   │   ├── FormulaVisualizer.tsx
 │   │   │   │   └── BacktestResults.tsx
-│   │   │   └── layout/
-│   │   │       ├── Header.tsx
-│   │   │       ├── TabBar.tsx
-│   │   │       ├── Drawer.tsx
-│   │   │       └── SafeAreaWrapper.tsx
-│   │   ├── services/                    # API clients and integrations
+│   │   │   ├── charts/
+│   │   │   │   ├── CandlestickChart.tsx
+│   │   │   │   ├── LineChart.tsx
+│   │   │   │   └── VolumeChart.tsx
+│   │   │   └── navigation/
+│   │   │       ├── TabNavigator.tsx
+│   │   │       ├── StackNavigator.tsx
+│   │   │       └── DrawerNavigator.tsx
+│   │   ├── services/                 # API clients and broker integrations
 │   │   │   ├── api/
 │   │   │   │   ├── client.ts
 │   │   │   │   ├── auth.ts
 │   │   │   │   ├── trading.ts
-│   │   │   │   ├── market.ts
-│   │   │   │   └── formulas.ts
-│   │   │   ├── brokers/                 # Broker integrations
+│   │   │   │   ├── formulas.ts
+│   │   │   │   └── notifications.ts
+│   │   │   ├── brokers/
 │   │   │   │   ├── base/
 │   │   │   │   │   ├── BrokerInterface.ts
 │   │   │   │   │   └── BrokerConfig.ts
@@ -78,213 +71,217 @@ trading-marketplace/
 │   │   │   │   ├── interactive-brokers/
 │   │   │   │   │   ├── IBBroker.ts
 │   │   │   │   │   └── IBConfig.ts
-│   │   │   │   └── td-ameritrade/
-│   │   │   │       ├── TDAmeritradeBroker.ts
-│   │   │   │       └── TDConfig.ts
+│   │   │   │   └── robinhood/
+│   │   │   │       ├── RobinhoodBroker.ts
+│   │   │   │       └── RobinhoodConfig.ts
 │   │   │   ├── websocket/
 │   │   │   │   ├── WebSocketClient.ts
-│   │   │   │   ├── MarketDataStream.ts
-│   │   │   │   └── OrderUpdatesStream.ts
+│   │   │   │   ├── PriceFeed.ts
+│   │   │   │   └── OrderUpdates.ts
 │   │   │   └── storage/
-│   │   │       ├── SecureStorage.ts
 │   │   │       ├── AsyncStorage.ts
-│   │   │       └── CacheManager.ts
-│   │   ├── state/                       # Global state management
+│   │   │       └── SecureStorage.ts
+│   │   ├── hooks/                    # Custom React hooks
+│   │   │   ├── useAuth.ts
+│   │   │   ├── useTrading.ts
+│   │   │   ├── useFormulas.ts
+│   │   │   ├── useWebSocket.ts
+│   │   │   ├── useNotifications.ts
+│   │   │   └── useTheme.ts
+│   │   ├── state/                    # Global app state management
 │   │   │   ├── context/
 │   │   │   │   ├── AuthContext.tsx
 │   │   │   │   ├── TradingContext.tsx
-│   │   │   │   ├── MarketContext.tsx
-│   │   │   │   └── AppContext.tsx
+│   │   │   │   ├── FormulaContext.tsx
+│   │   │   │   └── ThemeContext.tsx
 │   │   │   ├── reducers/
 │   │   │   │   ├── authReducer.ts
 │   │   │   │   ├── tradingReducer.ts
-│   │   │   │   └── marketReducer.ts
-│   │   │   ├── hooks/
-│   │   │   │   ├── useAuth.ts
-│   │   │   │   ├── useTrading.ts
-│   │   │   │   ├── useMarketData.ts
-│   │   │   │   ├── useFormulas.ts
-│   │   │   │   └── useWebSocket.ts
-│   │   │   └── store/
-│   │   │       ├── store.ts
-│   │   │       └── middleware.ts
-│   │   ├── notifications/               # Push notifications
+│   │   │   │   └── formulaReducer.ts
+│   │   │   ├── store/
+│   │   │   │   ├── store.ts
+│   │   │   │   └── middleware.ts
+│   │   │   └── types/
+│   │   │       ├── auth.ts
+│   │   │       ├── trading.ts
+│   │   │       └── formulas.ts
+│   │   ├── notifications/            # Push notification handling
 │   │   │   ├── NotificationService.ts
 │   │   │   ├── NotificationHandler.ts
 │   │   │   ├── PushTokenManager.ts
 │   │   │   └── types.ts
-│   │   ├── theme/                       # Design system
+│   │   ├── theme/                    # Design system and theming
 │   │   │   ├── colors.ts
-│   │   │   ├── typography.ts
+│   │   │   ├── fonts.ts
 │   │   │   ├── spacing.ts
 │   │   │   ├── breakpoints.ts
 │   │   │   ├── shadows.ts
 │   │   │   └── index.ts
-│   │   ├── assets/                      # Static assets
+│   │   ├── assets/                   # Static assets
 │   │   │   ├── images/
 │   │   │   │   ├── logos/
 │   │   │   │   └── backgrounds/
 │   │   │   ├── icons/
 │   │   │   │   ├── trading/
-│   │   │   │   ├── market/
+│   │   │   │   ├── navigation/
 │   │   │   │   └── common/
-│   │   │   └── svgs/
-│   │   │       ├── charts/
-│   │   │       └── illustrations/
-│   │   ├── utilities/                   # Helper functions
-│   │   │   ├── formatters/
-│   │   │   │   ├── currency.ts
-│   │   │   │   ├── date.ts
-│   │   │   │   └── number.ts
-│   │   │   ├── validators/
-│   │   │   │   ├── auth.ts
-│   │   │   │   ├── trading.ts
-│   │   │   │   └── forms.ts
-│   │   │   ├── calculations/
-│   │   │   │   ├── pnl.ts
-│   │   │   │   ├── risk.ts
-│   │   │   │   └── indicators.ts
-│   │   │   ├── constants/
-│   │   │   │   ├── api.ts
-│   │   │   │   ├── trading.ts
-│   │   │   │   └── app.ts
-│   │   │   └── helpers/
-│   │   │       ├── navigation.ts
-│   │   │       ├── permissions.ts
-│   │   │       └── device.ts
-│   │   ├── types/                       # TypeScript type definitions
+│   │   │   ├── svgs/
+│   │   │   │   ├── charts/
+│   │   │   │   └── illustrations/
+│   │   │   └── fonts/
+│   │   ├── utils/                    # Utility functions
+│   │   │   ├── formatters.ts
+│   │   │   ├── validators.ts
+│   │   │   ├── calculations.ts
+│   │   │   ├── dateUtils.ts
+│   │   │   ├── numberUtils.ts
+│   │   │   └── constants.ts
+│   │   ├── types/                    # TypeScript type definitions
 │   │   │   ├── api.ts
+│   │   │   ├── navigation.ts
 │   │   │   ├── trading.ts
-│   │   │   ├── market.ts
-│   │   │   ├── auth.ts
+│   │   │   ├── formulas.ts
 │   │   │   └── common.ts
-│   │   └── navigation/                  # Navigation configuration
-│   │       ├── AppNavigator.tsx
-│   │       ├── AuthNavigator.tsx
-│   │       ├── TabNavigator.tsx
-│   │       └── types.ts
-│   ├── android/                         # Android-specific files
-│   ├── ios/                             # iOS-specific files
-│   ├── __tests__/                       # Test files
-│   │   ├── components/
-│   │   ├── screens/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   └── __mocks__/
-│   ├── docs/                            # Documentation
-│   │   ├── api/
-│   │   ├── components/
-│   │   ├── setup/
-│   │   └── deployment/
+│   │   └── __tests__/                # Frontend tests
+│   │       ├── components/
+│   │       ├── screens/
+│   │       ├── services/
+│   │       ├── hooks/
+│   │       └── utils/
+│   ├── android/                      # Android-specific files
+│   ├── ios/                          # iOS-specific files
 │   ├── package.json
 │   ├── tsconfig.json
 │   ├── metro.config.js
 │   ├── babel.config.js
 │   └── app.json
-├── backend/                             # FastAPI Backend
+├── backend/                          # FastAPI (Python) Backend
 │   ├── app/
-│   │   ├── api/                         # API routes
+│   │   ├── api/                      # API routes
 │   │   │   ├── __init__.py
 │   │   │   ├── v1/
 │   │   │   │   ├── __init__.py
 │   │   │   │   ├── auth.py
 │   │   │   │   ├── trading.py
-│   │   │   │   ├── market.py
 │   │   │   │   ├── formulas.py
-│   │   │   │   ├── users.py
-│   │   │   │   └── notifications.py
+│   │   │   │   ├── brokers.py
+│   │   │   │   ├── notifications.py
+│   │   │   │   └── users.py
 │   │   │   └── dependencies.py
-│   │   ├── models/                      # Database models
+│   │   ├── models/                   # Database models
 │   │   │   ├── __init__.py
 │   │   │   ├── user.py
 │   │   │   ├── trading.py
-│   │   │   ├── market.py
 │   │   │   ├── formulas.py
+│   │   │   ├── brokers.py
 │   │   │   └── notifications.py
-│   │   ├── schemas/                     # Pydantic schemas
+│   │   ├── schemas/                  # Pydantic schemas
 │   │   │   ├── __init__.py
 │   │   │   ├── user.py
 │   │   │   ├── trading.py
-│   │   │   ├── market.py
 │   │   │   ├── formulas.py
-│   │   │   └── common.py
-│   │   ├── services/                    # Business logic
+│   │   │   ├── brokers.py
+│   │   │   └── notifications.py
+│   │   ├── services/                 # Business logic services
 │   │   │   ├── __init__.py
 │   │   │   ├── auth_service.py
 │   │   │   ├── trading_service.py
-│   │   │   ├── market_service.py
 │   │   │   ├── formula_service.py
+│   │   │   ├── broker_service.py
 │   │   │   ├── notification_service.py
-│   │   │   └── broker_service.py
-│   │   ├── tasks/                       # Scheduled jobs
+│   │   │   └── websocket_service.py
+│   │   ├── tasks/                    # Scheduled jobs and background tasks
 │   │   │   ├── __init__.py
+│   │   │   ├── celery_app.py
 │   │   │   ├── market_data.py
 │   │   │   ├── formula_execution.py
-│   │   │   ├── risk_monitoring.py
+│   │   │   ├── notifications.py
 │   │   │   └── cleanup.py
-│   │   ├── auth/                        # Authentication
+│   │   ├── auth/                     # Authentication and authorization
 │   │   │   ├── __init__.py
 │   │   │   ├── jwt_handler.py
 │   │   │   ├── password_handler.py
 │   │   │   ├── oauth_handler.py
 │   │   │   └── permissions.py
-│   │   ├── config/                      # Configuration
+│   │   ├── config/                   # Configuration management
 │   │   │   ├── __init__.py
 │   │   │   ├── settings.py
 │   │   │   ├── database.py
 │   │   │   ├── redis.py
-│   │   │   └── celery.py
-│   │   ├── core/                        # Core functionality
+│   │   │   └── broker_configs.py
+│   │   ├── core/                     # Core application logic
 │   │   │   ├── __init__.py
-│   │   │   ├── database.py
 │   │   │   ├── security.py
+│   │   │   ├── database.py
 │   │   │   ├── exceptions.py
 │   │   │   └── middleware.py
-│   │   ├── utils/                       # Utility functions
+│   │   ├── utils/                    # Utility functions
 │   │   │   ├── __init__.py
 │   │   │   ├── formatters.py
 │   │   │   ├── validators.py
 │   │   │   ├── calculations.py
-│   │   │   └── helpers.py
-│   │   └── main.py                      # FastAPI app entry point
-│   ├── tests/                           # Test files
+│   │   │   ├── date_utils.py
+│   │   │   └── constants.py
+│   │   ├── integrations/             # External service integrations
+│   │   │   ├── __init__.py
+│   │   │   ├── brokers/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── base_broker.py
+│   │   │   │   ├── alpaca_broker.py
+│   │   │   │   ├── ib_broker.py
+│   │   │   │   └── robinhood_broker.py
+│   │   │   ├── market_data/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── alpha_vantage.py
+│   │   │   │   ├── yahoo_finance.py
+│   │   │   │   └── polygon.py
+│   │   │   └── notifications/
+│   │   │       ├── __init__.py
+│   │   │       ├── firebase.py
+│   │   │       └── email_service.py
+│   │   └── main.py                   # FastAPI application entry point
+│   ├── tests/                        # Backend tests
 │   │   ├── __init__.py
 │   │   ├── conftest.py
-│   │   ├── unit/
-│   │   │   ├── test_models.py
-│   │   │   ├── test_services.py
-│   │   │   └── test_utils.py
-│   │   ├── integration/
-│   │   │   ├── test_api.py
-│   │   │   └── test_auth.py
-│   │   └── e2e/
-│   │       └── test_trading_flow.py
-│   ├── docs/                            # Documentation
-│   │   ├── api/
-│   │   ├── deployment/
-│   │   ├── development/
-│   │   └── architecture/
-│   ├── migrations/                      # Database migrations
+│   │   ├── test_api/
+│   │   ├── test_services/
+│   │   ├── test_models/
+│   │   └── test_integrations/
+│   ├── migrations/                   # Database migrations
 │   ├── requirements.txt
 │   ├── requirements-dev.txt
 │   ├── pyproject.toml
 │   ├── Dockerfile
 │   └── docker-compose.yml
-├── shared/                              # Shared code between frontend/backend
-│   ├── types/                           # Shared TypeScript types
-│   ├── constants/                       # Shared constants
-│   └── utils/                           # Shared utility functions
-├── infrastructure/                      # Infrastructure as Code
-│   ├── terraform/
-│   ├── kubernetes/
-│   └── docker/
-├── scripts/                             # Build and deployment scripts
-│   ├── build.sh
+├── docs/                             # Documentation
+│   ├── api/
+│   │   ├── authentication.md
+│   │   ├── trading.md
+│   │   ├── formulas.md
+│   │   └── brokers.md
+│   ├── frontend/
+│   │   ├── components.md
+│   │   ├── navigation.md
+│   │   └── theming.md
+│   ├── backend/
+│   │   ├── architecture.md
+│   │   ├── database.md
+│   │   └── deployment.md
+│   └── deployment/
+│       ├── docker.md
+│       ├── aws.md
+│       └── ci-cd.md
+├── scripts/                          # Development and deployment scripts
+│   ├── setup.sh
 │   ├── deploy.sh
-│   └── setup.sh
-├── .github/                             # GitHub workflows
+│   ├── test.sh
+│   └── migrate.sh
+├── .github/                          # GitHub Actions CI/CD
 │   └── workflows/
+│       ├── frontend.yml
+│       ├── backend.yml
+│       └── deploy.yml
 ├── .gitignore
 ├── README.md
-└── docker-compose.yml
+└── docker-compose.yml                # Development environment
 ```

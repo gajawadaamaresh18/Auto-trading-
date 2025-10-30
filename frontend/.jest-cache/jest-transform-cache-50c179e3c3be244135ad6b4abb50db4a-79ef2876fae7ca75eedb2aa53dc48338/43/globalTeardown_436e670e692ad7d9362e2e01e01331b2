@@ -1,0 +1,20 @@
+118fd522088f038e93ce1280ae10a4c6
+"use strict";
+/**
+ * Global Test Teardown
+ *
+ * Global teardown for Jest tests including cleanup operations.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = globalTeardown;
+// Global test teardown
+async function globalTeardown() {
+    // Clean up any global resources
+    // Close any open handles
+    // Clear any global state
+    // Force garbage collection if available
+    if (global.gc) {
+        global.gc();
+    }
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxkZWxsXFxEb2N1bWVudHNcXEFtYXJlc2hcXEF1dG8tdHJhZGluZy1cXEF1dG8tdHJhZGluZy1cXGZyb250ZW5kXFxzcmNcXF9fdGVzdHNfX1xcZ2xvYmFsVGVhcmRvd24udHMiLCJtYXBwaW5ncyI6IjtBQUFBOzs7O0dBSUc7O0FBR0gsaUNBU0M7QUFWRCx1QkFBdUI7QUFDUixLQUFLLFVBQVUsY0FBYztJQUMxQyxnQ0FBZ0M7SUFDaEMseUJBQXlCO0lBQ3pCLHlCQUF5QjtJQUV6Qix3Q0FBd0M7SUFDeEMsSUFBSSxNQUFNLENBQUMsRUFBRSxFQUFFLENBQUM7UUFDZCxNQUFNLENBQUMsRUFBRSxFQUFFLENBQUM7SUFDZCxDQUFDO0FBQ0gsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXGRlbGxcXERvY3VtZW50c1xcQW1hcmVzaFxcQXV0by10cmFkaW5nLVxcQXV0by10cmFkaW5nLVxcZnJvbnRlbmRcXHNyY1xcX190ZXN0c19fXFxnbG9iYWxUZWFyZG93bi50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogR2xvYmFsIFRlc3QgVGVhcmRvd25cclxuICogXHJcbiAqIEdsb2JhbCB0ZWFyZG93biBmb3IgSmVzdCB0ZXN0cyBpbmNsdWRpbmcgY2xlYW51cCBvcGVyYXRpb25zLlxyXG4gKi9cclxuXHJcbi8vIEdsb2JhbCB0ZXN0IHRlYXJkb3duXHJcbmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIGdsb2JhbFRlYXJkb3duKCkge1xyXG4gIC8vIENsZWFuIHVwIGFueSBnbG9iYWwgcmVzb3VyY2VzXHJcbiAgLy8gQ2xvc2UgYW55IG9wZW4gaGFuZGxlc1xyXG4gIC8vIENsZWFyIGFueSBnbG9iYWwgc3RhdGVcclxuICBcclxuICAvLyBGb3JjZSBnYXJiYWdlIGNvbGxlY3Rpb24gaWYgYXZhaWxhYmxlXHJcbiAgaWYgKGdsb2JhbC5nYykge1xyXG4gICAgZ2xvYmFsLmdjKCk7XHJcbiAgfVxyXG59XHJcbiJdLCJ2ZXJzaW9uIjozfQ==

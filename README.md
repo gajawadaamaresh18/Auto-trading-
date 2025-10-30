@@ -1,380 +1,373 @@
-# Formula-Driven Stock Selection & Execution Platform
+# Stock Trading Marketplace App
 
-A sophisticated trading platform that enables users to create, test, and automatically execute stock selection formulas with institutional-grade analytics and multi-broker support.
+A mobile-first, broker-agnostic, formula-driven stock trading marketplace that enables users to discover, create, and execute algorithmic trading strategies through an intuitive iOS-grade interface.
 
-## 🎯 What is this app?
+## 🎯 What is this App?
 
-This platform combines the power of quantitative analysis with automated execution, allowing traders and investors to:
+This application combines the power of algorithmic trading with social discovery, allowing users to:
 
-- **Create & Share Formulas**: Build custom stock selection algorithms using a visual formula builder or code editor
+- **Discover & Share Trading Formulas**: Browse a marketplace of community-created trading strategies
+- **Build Custom Strategies**: Use our visual formula builder to create sophisticated trading algorithms
 - **Backtest & Validate**: Test strategies against historical data with comprehensive analytics
-- **Live Trading**: Execute formulas automatically across multiple brokers with real-time monitoring
-- **Community Marketplace**: Discover, share, and monetize successful trading formulas
-- **Professional Analytics**: Access institutional-grade performance metrics and risk analysis
+- **Auto-Execute Trades**: Deploy strategies across multiple brokers with real-time execution
+- **Community-Driven**: Learn from and collaborate with other traders through shared formulas
+
+The app provides a seamless experience across multiple brokers including major Indian brokers (Zerodha, Angel One, Upstox) and international brokers (Alpaca, Interactive Brokers, Robinhood) while maintaining a consistent, iOS-grade user interface that prioritizes usability and performance.
 
 ## ✨ Key Features
 
 ### 📊 Formula Marketplace
-- **Visual Formula Builder**: Drag-and-drop interface for creating trading strategies
-- **Code Editor**: Advanced users can write custom formulas in Python/JavaScript
-- **Formula Library**: Browse and discover strategies from the community
-- **Monetization**: Sell successful formulas or subscribe to premium strategies
-- **Version Control**: Track formula changes and performance over time
+- Browse community-created trading strategies
+- Rate and review formulas
+- Follow successful traders
+- Categorize formulas by strategy type, risk level, and performance
 
-### 🔬 Backtesting & Live Analytics
-- **Historical Testing**: Test formulas against years of market data
-- **Real-time Simulation**: Paper trading with live market data
-- **Performance Metrics**: Sharpe ratio, max drawdown, win rate, and more
-- **Risk Analysis**: Value-at-Risk, correlation analysis, sector exposure
-- **Portfolio Optimization**: Multi-formula portfolio construction and rebalancing
+### 🔬 Backtest & Live Analytics
+- Historical performance analysis with detailed metrics
+- Real-time strategy monitoring and alerts
+- Risk assessment and drawdown analysis
+- Performance attribution and factor analysis
 
 ### ⚡ Auto Execution
-- **Multi-Broker Support**: Connect to TD Ameritrade, Interactive Brokers, Alpaca, and more
-- **Smart Order Routing**: Automatically select best execution venue
-- **Risk Management**: Position sizing, stop-losses, and exposure limits
-- **Scheduling**: Time-based and event-driven formula execution
-- **Compliance**: Built-in regulatory compliance and audit trails
+- Multi-broker support with unified interface
+- Real-time order management and execution
+- Position sizing and risk management
+- Slippage and commission tracking
 
 ### 👥 User Community
-- **Social Features**: Follow successful traders, share insights
-- **Discussion Forums**: Strategy discussions and market analysis
-- **Leaderboards**: Top performers and most popular formulas
-- **Mentorship**: Connect with experienced traders
-- **Educational Content**: Tutorials, webinars, and best practices
+- Social features for strategy sharing
+- Discussion forums and strategy reviews
+- Leaderboards and performance rankings
+- Mentorship and collaboration tools
 
-### 🔔 Notifications & Alerts
-- **Real-time Alerts**: Price movements, formula triggers, execution confirmations
-- **Custom Notifications**: Email, SMS, push notifications, webhooks
-- **Market Events**: Earnings announcements, economic indicators
-- **Performance Updates**: Daily/weekly/monthly performance summaries
+### 🔔 Smart Notifications
+- Customizable alerts for strategy triggers
+- Market condition notifications
+- Performance milestone alerts
+- Community interaction notifications
 
 ## 🛠 Tech Stack
 
-### Frontend (Mobile & Web)
-- **React Native**: Cross-platform mobile app with native performance
-- **React**: Web dashboard and admin interface
-- **TypeScript**: Type-safe development across all frontend code
-- **Redux Toolkit**: State management with RTK Query for API calls
-- **React Query**: Server state management and caching
-- **NativeBase/Chakra UI**: Component library for consistent design
-- **Reanimated 3**: Smooth animations and gestures
-- **React Navigation**: Navigation and deep linking
+### Frontend
+- **React Native** with TypeScript for cross-platform mobile development
+- **React Navigation** for seamless navigation experience
+- **Redux Toolkit** for state management
+- **React Query** for server state management
+- **Reanimated** for smooth animations
+- **Victory Native** for charting and data visualization
 
-### Backend (API & Services)
-- **FastAPI**: High-performance Python web framework
-- **PostgreSQL**: Primary database with TimescaleDB for time-series data
-- **Redis**: Caching and session storage
-- **Celery**: Distributed task queue for background processing
-- **Pydantic**: Data validation and serialization
-- **SQLAlchemy**: ORM with Alembic for migrations
-- **Docker**: Containerization and deployment
+### Backend
+- **FastAPI** with Python 3.11+ for high-performance API
+- **PostgreSQL** for primary data storage
+- **Redis** for caching and session management
+- **Celery** for background task processing
+- **WebSockets** for real-time data streaming
+- **SQLAlchemy** for ORM and database management
 
-### Data & Analytics
-- **Pandas**: Data manipulation and analysis
-- **NumPy**: Numerical computing
-- **Scikit-learn**: Machine learning algorithms
-- **TA-Lib**: Technical analysis indicators
-- **yfinance**: Market data ingestion
-- **Alpha Vantage**: Additional market data sources
-- **InfluxDB**: Time-series data storage for real-time metrics
-
-### Infrastructure & DevOps
-- **AWS/GCP**: Cloud hosting and services
-- **Kubernetes**: Container orchestration
-- **Terraform**: Infrastructure as code
-- **GitHub Actions**: CI/CD pipeline
-- **Prometheus**: Monitoring and alerting
-- **Grafana**: Analytics and visualization dashboards
+### Infrastructure
+- **Docker** for containerization
+- **AWS** for cloud hosting (ECS, RDS, ElastiCache)
+- **GitHub Actions** for CI/CD
+- **Sentry** for error monitoring
+- **Firebase** for push notifications
 
 ### Broker Integrations
-- **TD Ameritrade API**: US equity and options trading
-- **Interactive Brokers API**: Global markets access
-- **Alpaca API**: Commission-free trading
-- **E*TRADE API**: Additional US broker support
-- **Custom SDKs**: Modular broker integration framework
+- **Alpaca** - Commission-free trading
+- **Interactive Brokers** - Professional trading platform
+- **Robinhood** - Retail-focused broker
+- **Custom broker SDKs** for unified interface
 
-## 🚀 Development Setup
+## 🚀 Getting Started
 
 ### Prerequisites
-- **Node.js** 18+ and npm/yarn
-- **Python** 3.11+
-- **PostgreSQL** 14+
-- **Redis** 6+
-- **Docker** and Docker Compose
-- **Xcode** (for iOS development)
-- **Android Studio** (for Android development)
+- Node.js 18+ and npm
+- Python 3.11+
+- PostgreSQL 14+
+- Redis 6+
+- Docker (optional)
 
 ### Backend Setup
 
+1. **Clone and navigate to backend**
 ```bash
-# Clone and navigate to backend
 cd backend
+   ```
 
-# Create virtual environment
+2. **Create virtual environment**
+   ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-# Install dependencies
+3. **Install dependencies**
+   ```bash
 pip install -r requirements.txt
+   pip install -r requirements-dev.txt
+   ```
 
-# Set up environment variables
+4. **Set up environment variables**
+   ```bash
 cp .env.example .env
-# Edit .env with your database and API credentials
+   # Edit .env with your database and broker credentials
+   ```
 
-# Run database migrations
+5. **Initialize database**
+   ```bash
 alembic upgrade head
+   ```
 
-# Start development server
+6. **Run the development server**
+   ```bash
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+7. **Start Celery worker** (in separate terminal)
+   ```bash
+   celery -A app.tasks.celery_app worker --loglevel=info
+   ```
+
 ### Frontend Setup
 
+1. **Navigate to frontend**
 ```bash
-# Navigate to frontend directory
 cd frontend
+   ```
 
-# Install dependencies
+2. **Install dependencies**
+   ```bash
 npm install
+   ```
 
-# iOS setup (macOS only)
+3. **iOS setup** (macOS only)
+   ```bash
 cd ios && pod install && cd ..
+   ```
 
-# Start Metro bundler
+4. **Start Metro bundler**
+   ```bash
 npm start
+   ```
 
-# Run on iOS simulator
+5. **Run on device/simulator**
+   ```bash
+   # iOS
 npm run ios
 
-# Run on Android emulator
+   # Android
 npm run android
-
-# Run web version
-npm run web
 ```
 
 ### Database Setup
 
+1. **Start PostgreSQL**
 ```bash
-# Start PostgreSQL and Redis with Docker
-docker-compose up -d postgres redis
+   # Using Docker
+   docker run --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:14
+   
+   # Or install locally and start service
+   ```
 
-# Create database
-createdb formula_trading
+2. **Create database**
+   ```bash
+   createdb trading_app
+   ```
 
-# Run migrations
-cd backend && alembic upgrade head
+3. **Run migrations**
+   ```bash
+   cd backend
+   alembic upgrade head
+   ```
 
-# Seed initial data
-python scripts/seed_data.py
-```
+## 🧪 Testing
 
-### Testing
-
+### Backend Testing
 ```bash
-# Backend tests
 cd backend
 pytest tests/ -v --cov=app
+```
 
-# Frontend tests
+### Frontend Testing
+```bash
 cd frontend
 npm test
-
-# E2E tests
-npm run test:e2e
-
-# Linting and formatting
-npm run lint
-npm run format
 ```
 
-## 📁 Project Structure
-
-```
-formula-trading-platform/
-├── backend/                 # FastAPI backend
-│   ├── app/
-│   │   ├── api/            # API routes and endpoints
-│   │   ├── core/           # Core configuration and security
-│   │   ├── db/             # Database models and connections
-│   │   ├── services/       # Business logic and services
-│   │   ├── schemas/        # Pydantic models
-│   │   └── utils/          # Utility functions
-│   ├── tests/              # Backend tests
-│   ├── alembic/            # Database migrations
-│   └── requirements.txt
-├── frontend/                # React Native app
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── screens/        # App screens
-│   │   ├── navigation/     # Navigation configuration
-│   │   ├── services/       # API services
-│   │   ├── store/          # Redux store
-│   │   └── utils/          # Utility functions
-│   ├── ios/                # iOS-specific code
-│   ├── android/            # Android-specific code
-│   └── package.json
-├── web/                     # React web dashboard
-│   ├── src/
-│   │   ├── components/     # Web components
-│   │   ├── pages/          # Web pages
-│   │   └── hooks/          # Custom React hooks
-│   └── package.json
-├── shared/                  # Shared utilities and types
-│   ├── types/              # TypeScript type definitions
-│   ├── constants/          # Shared constants
-│   └── utils/              # Shared utility functions
-├── docs/                    # Documentation
-├── scripts/                 # Development and deployment scripts
-└── docker-compose.yml      # Local development environment
+### Integration Testing
+```bash
+# Run full test suite
+npm run test:integration
 ```
 
-## 🎨 Development Best Practices
+## 📱 Development Workflow
 
-### Code Organization
+### Code Organization Principles
 
-#### Modularity
-- **Feature-based structure**: Organize code by features rather than file types
-- **Shared components**: Extract reusable UI components to `/shared/components`
-- **Service layer**: Separate business logic from UI components
-- **Custom hooks**: Encapsulate complex state logic in reusable hooks
+1. **Modular Architecture**: Each feature is self-contained with its own components, services, and tests
+2. **Separation of Concerns**: Clear boundaries between UI, business logic, and data layers
+3. **Reusability**: Common components and utilities are shared across features
+4. **Type Safety**: Comprehensive TypeScript usage with strict type checking
 
-#### Reusability
-- **Component composition**: Build complex UIs from simple, composable components
-- **Generic utilities**: Create type-safe utility functions for common operations
-- **API abstraction**: Use consistent patterns for API calls and error handling
-- **Theme system**: Centralize design tokens and styling patterns
+### Frontend Best Practices
 
-### Coding Guidelines
-
-#### TypeScript
+#### Component Structure
 ```typescript
-// Use strict typing
-interface FormulaConfig {
-  id: string;
-  name: string;
-  parameters: Record<string, unknown>;
-  createdAt: Date;
+// components/trading/StockCard.tsx
+interface StockCardProps {
+  symbol: string;
+  price: number;
+  change: number;
+  onPress?: () => void;
 }
 
-// Prefer interfaces over types for object shapes
-// Use enums for fixed sets of values
-enum BrokerType {
-  TD_AMERITRADE = 'td_ameritrade',
-  INTERACTIVE_BROKERS = 'interactive_brokers',
-  ALPACA = 'alpaca'
-}
-```
-
-#### React Components
-```typescript
-// Use functional components with hooks
-const FormulaCard: React.FC<FormulaCardProps> = ({ formula, onSelect }) => {
-  const { data, isLoading } = useFormula(formula.id);
-  
-  if (isLoading) return <LoadingSpinner />;
-  
-  return (
-    <Card onPress={() => onSelect(formula)}>
-      <Text>{formula.name}</Text>
-      <PerformanceChart data={data.performance} />
-    </Card>
-  );
+export const StockCard: React.FC<StockCardProps> = ({ 
+  symbol, 
+  price, 
+  change, 
+  onPress 
+}) => {
+  // Component implementation
 };
 ```
 
-#### API Design
-```python
-# Use Pydantic for request/response models
-class FormulaCreateRequest(BaseModel):
-    name: str
-    description: str
-    code: str
-    parameters: Dict[str, Any]
-
-class FormulaResponse(BaseModel):
-    id: UUID
-    name: str
-    performance: PerformanceMetrics
-    created_at: datetime
-    
-    class Config:
-        from_attributes = True
+#### Custom Hooks Pattern
+```typescript
+// hooks/useTrading.ts
+export const useTrading = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(false);
+  
+  const placeOrder = useCallback(async (order: CreateOrderRequest) => {
+    // Implementation
+  }, []);
+  
+  return { orders, loading, placeOrder };
+};
 ```
 
-### Testing Strategy
+#### Service Layer
+```typescript
+// services/api/trading.ts
+export class TradingService {
+  private client: ApiClient;
+  
+  async placeOrder(order: CreateOrderRequest): Promise<Order> {
+    return this.client.post('/trading/orders', order);
+  }
+  
+  async getOrders(): Promise<Order[]> {
+    return this.client.get('/trading/orders');
+  }
+}
+```
 
-#### Unit Tests
-- Test individual functions and components in isolation
-- Mock external dependencies (APIs, databases)
-- Aim for 80%+ code coverage
+### Backend Best Practices
 
-#### Integration Tests
-- Test API endpoints with real database
-- Test component interactions
-- Test data flow between services
+#### Service Layer Pattern
+```python
+# services/trading_service.py
+class TradingService:
+    def __init__(self, db: Session, broker_service: BrokerService):
+        self.db = db
+        self.broker_service = broker_service
+    
+    async def place_order(self, order_data: CreateOrderRequest) -> Order:
+        # Business logic implementation
+        pass
+```
 
-#### E2E Tests
-- Test complete user workflows
-- Use real device/simulator for mobile tests
-- Test critical paths: formula creation, execution, monitoring
+#### Repository Pattern
+```python
+# models/trading.py
+class OrderRepository:
+    def __init__(self, db: Session):
+        self.db = db
+    
+    def create(self, order: Order) -> Order:
+        self.db.add(order)
+        self.db.commit()
+        return order
+```
 
-### Performance Optimization
+#### API Route Structure
+```python
+# api/v1/trading.py
+@router.post("/orders", response_model=OrderResponse)
+async def create_order(
+    order: CreateOrderRequest,
+    current_user: User = Depends(get_current_user),
+    trading_service: TradingService = Depends(get_trading_service)
+):
+    return await trading_service.place_order(order, current_user.id)
+```
+
+### Coding Guidelines
+
+#### TypeScript/JavaScript
+- Use functional components with hooks
+- Implement proper error boundaries
+- Use TypeScript strict mode
+- Follow React Native performance best practices
+- Implement proper loading and error states
+
+#### Python
+- Follow PEP 8 style guidelines
+- Use type hints for all functions
+- Implement proper error handling with custom exceptions
+- Use async/await for I/O operations
+- Write comprehensive docstrings
+
+#### Database
+- Use migrations for schema changes
+- Implement proper indexing for performance
+- Use connection pooling
+- Implement soft deletes where appropriate
+
+#### Testing
+- Write unit tests for all business logic
+- Implement integration tests for API endpoints
+- Use mocking for external dependencies
+- Maintain >80% code coverage
+
+### Performance Considerations
 
 #### Frontend
+- Implement lazy loading for screens
 - Use React.memo for expensive components
-- Implement virtual scrolling for large lists
-- Optimize images and assets
-- Use lazy loading for screens and components
+- Optimize image loading and caching
+- Implement proper state management to avoid unnecessary re-renders
 
 #### Backend
-- Implement database query optimization
-- Use Redis for caching frequently accessed data
-- Implement pagination for large datasets
-- Use background tasks for heavy computations
+- Use database connection pooling
+- Implement Redis caching for frequently accessed data
+- Use Celery for long-running tasks
+- Implement proper database indexing
+- Use WebSocket connections for real-time data
 
 ### Security Best Practices
 
-#### Authentication & Authorization
-- JWT tokens with short expiration
-- Refresh token rotation
-- Role-based access control (RBAC)
-- API rate limiting
-
-#### Data Protection
-- Encrypt sensitive data at rest
+- Implement JWT-based authentication
 - Use HTTPS for all communications
-- Implement input validation and sanitization
-- Regular security audits and dependency updates
+- Validate all input data
+- Implement rate limiting
+- Use environment variables for sensitive data
+- Implement proper CORS policies
+- Use secure storage for sensitive data on mobile
 
 ## 📚 Additional Resources
 
-- [API Documentation](http://localhost:8000/docs) - Interactive API docs
-- [Component Library](http://localhost:3000/storybook) - UI component documentation
-- [Trading Guide](docs/trading-guide.md) - How to create effective formulas
-- [Deployment Guide](docs/deployment.md) - Production deployment instructions
-- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute to the project
+- [API Documentation](./docs/api/)
+- [Component Library](./docs/frontend/components.md)
+- [Deployment Guide](./docs/deployment/)
+- [Contributing Guidelines](./CONTRIBUTING.md)
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on:
-
-- Code style and standards
-- Pull request process
-- Issue reporting
-- Development workflow
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-- **Documentation**: Check our comprehensive docs in the `/docs` folder
-- **Issues**: Report bugs and request features on GitHub Issues
-- **Discord**: Join our community Discord for real-time help
-- **Email**: Contact us at support@formulatrading.com
-
----
-
-**Built with ❤️ for the trading community**

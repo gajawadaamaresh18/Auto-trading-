@@ -1,0 +1,139 @@
+# ==========================
+# Global / OS
+# ==========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.orig
+*.log
+
+# Editors/IDEs
+.vscode/
+.idea/
+*.iml
+*.sublime-*
+
+# ==========================
+# Node / React Native (frontend)
+# ==========================
+node_modules/
+.npm/
+.npmrc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+
+# Metro / RN cache
+.expo/
+.expo-shared/
+.expo-dev-cache/
+.expo-web-cache/
+.packager/
+.haul-cache/
+metro-cache/
+
+# Jest / Detox
+frontend/coverage/
+coverage/
+*.lcov
+reports/
+artifacts/
+.detox/
+
+# Android
+android/.gradle/
+android/.idea/
+android/.cxx/
+android/local.properties
+android/**/build/
+android/app/build/
+android/app/release/
+android/app/src/main/assets/index.android.bundle
+*.keystore
+*.jks
+keystore.properties
+
+# iOS
+ios/Pods/
+ios/build/
+ios/DerivedData/
+ios/*.xcworkspace
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+
+# Expo/EAS
+*.cache
+.easlrc
+.eas/**
+# Keep project-level EAS config but ignore credentials
+!frontend/.eas.json
+**/google-service-account.json
+**/credentials.json
+
+# Bundles
+*.bundle
+*.map
+
+# Images / assets processed
+*.png.tmp
+*.svg.tmp
+
+# ==========================
+# Python / FastAPI (backend)
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing / Coverage
+backend/.coverage
+backend/.pytest_cache/
+backend/htmlcov/
+backend/coverage.xml
+.pytest_cache/
+.tox/
+
+# Logs
+backend/*.log
+backend/logs/
+
+# Local env/secrets
+.env
+.env.*
+backend/.env
+frontend/.env
+
+# Databases / artifacts
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.cache/
+.mypy_cache/
+.pyre/
+.pytype/
+
+# ==========================
+# Project-specific keeps
+# ==========================
+!frontend/app.json
+!frontend/.eas.json

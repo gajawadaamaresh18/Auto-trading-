@@ -1,0 +1,65 @@
+d477fcfc5be16d40a6e29b48f74282f3
+"use strict";
+
+/**
+ * Navigation Types
+ *
+ * TypeScript definitions for React Navigation
+ */
+/* istanbul ignore next */
+function cov_zmgte4bwf() {
+  var path = "C:\\Users\\dell\\Documents\\Amaresh\\Auto-trading-\\Auto-trading-\\frontend\\src\\types\\navigation.ts";
+  var hash = "b313b40bce858f53fa8c8416aca5fe25b9b6ab72";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "C:\\Users\\dell\\Documents\\Amaresh\\Auto-trading-\\Auto-trading-\\frontend\\src\\types\\navigation.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 7,
+          column: 0
+        },
+        end: {
+          line: 7,
+          column: 62
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    inputSourceMap: {
+      file: "C:\\Users\\dell\\Documents\\Amaresh\\Auto-trading-\\Auto-trading-\\frontend\\src\\types\\navigation.ts",
+      mappings: ";AAAA;;;;GAIG",
+      names: [],
+      sources: ["C:\\Users\\dell\\Documents\\Amaresh\\Auto-trading-\\Auto-trading-\\frontend\\src\\types\\navigation.ts"],
+      sourcesContent: ["/**\r\n * Navigation Types\r\n * \r\n * TypeScript definitions for React Navigation\r\n */\r\n\r\nexport type RootStackParamList = {\r\n  Marketplace: undefined;\r\n  FormulaDetail: { formulaId: string };\r\n  Profile: undefined;\r\n  Settings: undefined;\r\n  BrokerManagement: undefined;\r\n  Portfolio: undefined;\r\n  Notifications: undefined;\r\n  Login: undefined;\r\n  Register: undefined;\r\n};\r\n\r\nexport type TabParamList = {\r\n  Marketplace: undefined;\r\n  Portfolio: undefined;\r\n  Notifications: undefined;\r\n  Profile: undefined;\r\n};\r\n\r\nexport type DrawerParamList = {\r\n  Main: undefined;\r\n  Settings: undefined;\r\n  Help: undefined;\r\n  About: undefined;\r\n};\r\n\r\n// Navigation prop types\r\nexport type MarketplaceScreenNavigationProp = import('@react-navigation/stack').StackNavigationProp<RootStackParamList, 'Marketplace'>;\r\nexport type FormulaDetailScreenNavigationProp = import('@react-navigation/stack').StackNavigationProp<RootStackParamList, 'FormulaDetail'>;\r\nexport type ProfileScreenNavigationProp = import('@react-navigation/stack').StackNavigationProp<RootStackParamList, 'Profile'>;\r\n\r\n// Route prop types\r\nexport type MarketplaceScreenRouteProp = import('@react-navigation/stack').StackScreenProps<RootStackParamList, 'Marketplace'>['route'];\r\nexport type FormulaDetailScreenRouteProp = import('@react-navigation/stack').StackScreenProps<RootStackParamList, 'FormulaDetail'>['route'];\r\nexport type ProfileScreenRouteProp = import('@react-navigation/stack').StackScreenProps<RootStackParamList, 'Profile'>['route'];\r\n\r\n// Screen props types\r\nexport type MarketplaceScreenProps = {\r\n  navigation: MarketplaceScreenNavigationProp;\r\n  route: MarketplaceScreenRouteProp;\r\n};\r\n\r\nexport type FormulaDetailScreenProps = {\r\n  navigation: FormulaDetailScreenNavigationProp;\r\n  route: FormulaDetailScreenRouteProp;\r\n};\r\n\r\nexport type ProfileScreenProps = {\r\n  navigation: ProfileScreenNavigationProp;\r\n  route: ProfileScreenRouteProp;\r\n};\r\n"],
+      version: 3
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "b313b40bce858f53fa8c8416aca5fe25b9b6ab72"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_zmgte4bwf = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_zmgte4bwf();
+cov_zmgte4bwf().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3Zfem1ndGU0YndmIiwicGF0aCIsImhhc2giLCJnbG9iYWwiLCJGdW5jdGlvbiIsImdjdiIsImNvdmVyYWdlRGF0YSIsInN0YXRlbWVudE1hcCIsInN0YXJ0IiwibGluZSIsImNvbHVtbiIsImVuZCIsImZuTWFwIiwiYnJhbmNoTWFwIiwicyIsImYiLCJiIiwiaW5wdXRTb3VyY2VNYXAiLCJmaWxlIiwibWFwcGluZ3MiLCJuYW1lcyIsInNvdXJjZXMiLCJzb3VyY2VzQ29udGVudCIsInZlcnNpb24iLCJfY292ZXJhZ2VTY2hlbWEiLCJjb3ZlcmFnZSIsImFjdHVhbENvdmVyYWdlIl0sInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxkZWxsXFxEb2N1bWVudHNcXEFtYXJlc2hcXEF1dG8tdHJhZGluZy1cXEF1dG8tdHJhZGluZy1cXGZyb250ZW5kXFxzcmNcXHR5cGVzXFxuYXZpZ2F0aW9uLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBOYXZpZ2F0aW9uIFR5cGVzXHJcbiAqIFxyXG4gKiBUeXBlU2NyaXB0IGRlZmluaXRpb25zIGZvciBSZWFjdCBOYXZpZ2F0aW9uXHJcbiAqL1xyXG5cclxuZXhwb3J0IHR5cGUgUm9vdFN0YWNrUGFyYW1MaXN0ID0ge1xyXG4gIE1hcmtldHBsYWNlOiB1bmRlZmluZWQ7XHJcbiAgRm9ybXVsYURldGFpbDogeyBmb3JtdWxhSWQ6IHN0cmluZyB9O1xyXG4gIFByb2ZpbGU6IHVuZGVmaW5lZDtcclxuICBTZXR0aW5nczogdW5kZWZpbmVkO1xyXG4gIEJyb2tlck1hbmFnZW1lbnQ6IHVuZGVmaW5lZDtcclxuICBQb3J0Zm9saW86IHVuZGVmaW5lZDtcclxuICBOb3RpZmljYXRpb25zOiB1bmRlZmluZWQ7XHJcbiAgTG9naW46IHVuZGVmaW5lZDtcclxuICBSZWdpc3RlcjogdW5kZWZpbmVkO1xyXG59O1xyXG5cclxuZXhwb3J0IHR5cGUgVGFiUGFyYW1MaXN0ID0ge1xyXG4gIE1hcmtldHBsYWNlOiB1bmRlZmluZWQ7XHJcbiAgUG9ydGZvbGlvOiB1bmRlZmluZWQ7XHJcbiAgTm90aWZpY2F0aW9uczogdW5kZWZpbmVkO1xyXG4gIFByb2ZpbGU6IHVuZGVmaW5lZDtcclxufTtcclxuXHJcbmV4cG9ydCB0eXBlIERyYXdlclBhcmFtTGlzdCA9IHtcclxuICBNYWluOiB1bmRlZmluZWQ7XHJcbiAgU2V0dGluZ3M6IHVuZGVmaW5lZDtcclxuICBIZWxwOiB1bmRlZmluZWQ7XHJcbiAgQWJvdXQ6IHVuZGVmaW5lZDtcclxufTtcclxuXHJcbi8vIE5hdmlnYXRpb24gcHJvcCB0eXBlc1xyXG5leHBvcnQgdHlwZSBNYXJrZXRwbGFjZVNjcmVlbk5hdmlnYXRpb25Qcm9wID0gaW1wb3J0KCdAcmVhY3QtbmF2aWdhdGlvbi9zdGFjaycpLlN0YWNrTmF2aWdhdGlvblByb3A8Um9vdFN0YWNrUGFyYW1MaXN0LCAnTWFya2V0cGxhY2UnPjtcclxuZXhwb3J0IHR5cGUgRm9ybXVsYURldGFpbFNjcmVlbk5hdmlnYXRpb25Qcm9wID0gaW1wb3J0KCdAcmVhY3QtbmF2aWdhdGlvbi9zdGFjaycpLlN0YWNrTmF2aWdhdGlvblByb3A8Um9vdFN0YWNrUGFyYW1MaXN0LCAnRm9ybXVsYURldGFpbCc+O1xyXG5leHBvcnQgdHlwZSBQcm9maWxlU2NyZWVuTmF2aWdhdGlvblByb3AgPSBpbXBvcnQoJ0ByZWFjdC1uYXZpZ2F0aW9uL3N0YWNrJykuU3RhY2tOYXZpZ2F0aW9uUHJvcDxSb290U3RhY2tQYXJhbUxpc3QsICdQcm9maWxlJz47XHJcblxyXG4vLyBSb3V0ZSBwcm9wIHR5cGVzXHJcbmV4cG9ydCB0eXBlIE1hcmtldHBsYWNlU2NyZWVuUm91dGVQcm9wID0gaW1wb3J0KCdAcmVhY3QtbmF2aWdhdGlvbi9zdGFjaycpLlN0YWNrU2NyZWVuUHJvcHM8Um9vdFN0YWNrUGFyYW1MaXN0LCAnTWFya2V0cGxhY2UnPlsncm91dGUnXTtcclxuZXhwb3J0IHR5cGUgRm9ybXVsYURldGFpbFNjcmVlblJvdXRlUHJvcCA9IGltcG9ydCgnQHJlYWN0LW5hdmlnYXRpb24vc3RhY2snKS5TdGFja1NjcmVlblByb3BzPFJvb3RTdGFja1BhcmFtTGlzdCwgJ0Zvcm11bGFEZXRhaWwnPlsncm91dGUnXTtcclxuZXhwb3J0IHR5cGUgUHJvZmlsZVNjcmVlblJvdXRlUHJvcCA9IGltcG9ydCgnQHJlYWN0LW5hdmlnYXRpb24vc3RhY2snKS5TdGFja1NjcmVlblByb3BzPFJvb3RTdGFja1BhcmFtTGlzdCwgJ1Byb2ZpbGUnPlsncm91dGUnXTtcclxuXHJcbi8vIFNjcmVlbiBwcm9wcyB0eXBlc1xyXG5leHBvcnQgdHlwZSBNYXJrZXRwbGFjZVNjcmVlblByb3BzID0ge1xyXG4gIG5hdmlnYXRpb246IE1hcmtldHBsYWNlU2NyZWVuTmF2aWdhdGlvblByb3A7XHJcbiAgcm91dGU6IE1hcmtldHBsYWNlU2NyZWVuUm91dGVQcm9wO1xyXG59O1xyXG5cclxuZXhwb3J0IHR5cGUgRm9ybXVsYURldGFpbFNjcmVlblByb3BzID0ge1xyXG4gIG5hdmlnYXRpb246IEZvcm11bGFEZXRhaWxTY3JlZW5OYXZpZ2F0aW9uUHJvcDtcclxuICByb3V0ZTogRm9ybXVsYURldGFpbFNjcmVlblJvdXRlUHJvcDtcclxufTtcclxuXHJcbmV4cG9ydCB0eXBlIFByb2ZpbGVTY3JlZW5Qcm9wcyA9IHtcclxuICBuYXZpZ2F0aW9uOiBQcm9maWxlU2NyZWVuTmF2aWdhdGlvblByb3A7XHJcbiAgcm91dGU6IFByb2ZpbGVTY3JlZW5Sb3V0ZVByb3A7XHJcbn07XHJcbiJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7Ozs7QUFBQTtBQUFBLFNBQUFBLGNBQUE7RUFBQSxJQUFBQyxJQUFBO0VBQUEsSUFBQUMsSUFBQTtFQUFBLElBQUFDLE1BQUEsT0FBQUMsUUFBQTtFQUFBLElBQUFDLEdBQUE7RUFBQSxJQUFBQyxZQUFBO0lBQUFMLElBQUE7SUFBQU0sWUFBQTtNQUFBO1FBQUFDLEtBQUE7VUFBQUMsSUFBQTtVQUFBQyxNQUFBO1FBQUE7UUFBQUMsR0FBQTtVQUFBRixJQUFBO1VBQUFDLE1BQUE7UUFBQTtNQUFBO0lBQUE7SUFBQUUsS0FBQTtJQUFBQyxTQUFBO0lBQUFDLENBQUE7TUFBQTtJQUFBO0lBQUFDLENBQUE7SUFBQUMsQ0FBQTtJQUFBQyxjQUFBO01BQUFDLElBQUE7TUFBQUMsUUFBQTtNQUFBQyxLQUFBO01BQUFDLE9BQUE7TUFBQUMsY0FBQTtNQUFBQyxPQUFBO0lBQUE7SUFBQUMsZUFBQTtJQUFBdEIsSUFBQTtFQUFBO0VBQUEsSUFBQXVCLFFBQUEsR0FBQXRCLE1BQUEsQ0FBQUUsR0FBQSxNQUFBRixNQUFBLENBQUFFLEdBQUE7RUFBQSxLQUFBb0IsUUFBQSxDQUFBeEIsSUFBQSxLQUFBd0IsUUFBQSxDQUFBeEIsSUFBQSxFQUFBQyxJQUFBLEtBQUFBLElBQUE7SUFBQXVCLFFBQUEsQ0FBQXhCLElBQUEsSUFBQUssWUFBQTtFQUFBO0VBQUEsSUFBQW9CLGNBQUEsR0FBQUQsUUFBQSxDQUFBeEIsSUFBQTtFQUFBIiwiaWdub3JlTGlzdCI6W119
