@@ -324,7 +324,7 @@ jobs:
         }
         echo "✅ Authenticated successfully"
 
-    - name: Link/Verify Expo Project
+    - name: Create/Link Expo Project
       working-directory: ./frontend
       run: |
         echo "Checking project configuration..."
@@ -333,12 +333,31 @@ jobs:
           echo "✅ Project is already linked"
           npx eas project:info
         else
-          echo "⚠️ Project not linked"
-          echo "Project will be created automatically when build starts"
-          echo "Using app slug: auto-trading"
-          echo "Account: gajawadaamaresh18"
-          echo ""
-          echo "Note: eas.json is already configured, so build can proceed"
+          echo "⚠️ Project not linked, attempting to create..."
+          SLUG="auto-trading"
+          ACCOUNT_NAME="gajawadaamaresh18"
+          
+          echo "Attempting to create project: @${ACCOUNT_NAME}/${SLUG}"
+          
+          # Try to create project using eas init with --id flag
+          # First, try to get existing project ID from Expo API
+          PROJECT_INFO=$(curl -s -X GET "https://api.expo.dev/v2/projects/${ACCOUNT_NAME}/${SLUG}" \
+            -H "Authorization: Bearer ${{ secrets.EXPO_TOKEN }}" \
+            -H "Expo-API-Version: 1" 2>&1 || echo "")
+          
+          if echo "$PROJECT_INFO" | grep -qi "\"id\""; then
+            PROJECT_ID=$(echo "$PROJECT_INFO" | jq -r '.id // empty' 2>/dev/null || echo "")
+            if [ -n "$PROJECT_ID" ] && [ "$PROJECT_ID" != "null" ]; then
+              echo "✅ Project exists with ID: $PROJECT_ID"
+              echo "Linking project..."
+              npx eas project:init --id "$PROJECT_ID" --non-interactive || echo "Could not link project"
+            fi
+          else
+            echo "⚠️ Project does not exist yet"
+            echo "It will be created automatically when build starts"
+            echo "Using app slug: ${SLUG}"
+            echo "Account: ${ACCOUNT_NAME}"
+          fi
         fi
         echo ""
         echo "App Configuration:"
