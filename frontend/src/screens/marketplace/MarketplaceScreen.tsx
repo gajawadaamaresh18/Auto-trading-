@@ -67,9 +67,13 @@ const FILTER_OPTIONS: FilterOption[] = [
 
 const SHOW_FEATURED = false;
 
-export const MarketplaceScreen: React.FC<any> = (props) => {
+interface MarketplaceScreenProps {
+  navigation?: MarketplaceScreenNavigationProp;
+}
+
+export const MarketplaceScreen: React.FC<MarketplaceScreenProps> = (props) => {
   const navigationHook = useNavigation<MarketplaceScreenNavigationProp>();
-  const navigation = (props?.navigation as any) || navigationHook;
+  const navigation = props?.navigation || navigationHook;
   
   // State management
   const [searchQuery, setSearchQuery] = useState('');
