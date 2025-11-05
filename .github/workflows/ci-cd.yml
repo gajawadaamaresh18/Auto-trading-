@@ -300,6 +300,13 @@ jobs:
         npm i -D eas-cli
         npx eas --version
 
+    - name: Login to EAS
+      working-directory: ./frontend
+      run: |
+        echo "${{ secrets.EXPO_TOKEN }}" | npx eas login --non-interactive
+      env:
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
     - name: Configure EAS (Android)
       working-directory: ./frontend
       run: npx eas build:configure --platform android --non-interactive || true
@@ -406,22 +413,22 @@ jobs:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
         PYTHONPATH: ${{ github.workspace }}/backend
 
-  # Notification on failure
-  notify-on-failure:
-    name: Notify on Failure
-    runs-on: ubuntu-latest
-    needs: [frontend-tests, backend-tests, security-tests, build-and-deploy]
-    if: failure()
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Notify team
-      uses: 8398a7/action-slack@v3
-      with:
-        status: failure
-        text: 'CI/CD pipeline failed for Auto Trading App'
-        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
-      if: always()
-      continue-on-error: true
+  # Notification on failure (disabled - Slack webhook removed)
+  # notify-on-failure:
+  #   name: Notify on Failure
+  #   runs-on: ubuntu-latest
+  #   needs: [frontend-tests, backend-tests, security-tests, build-and-deploy]
+  #   if: failure()
+  #   
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
+  #     
+  #   - name: Notify team
+  #     uses: 8398a7/action-slack@v3
+  #     with:
+  #       status: failure
+  #       text: 'CI/CD pipeline failed for Auto Trading App'
+  #       webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+  #     if: always()
+  #     continue-on-error: true
