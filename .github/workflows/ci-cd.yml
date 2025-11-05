@@ -322,14 +322,25 @@ jobs:
       id: easbuild
       working-directory: ./frontend
       run: |
-        BUILD_OUTPUT=$(npx eas build -p android --profile production --non-interactive --json 2>&1 || echo "BUILD_FAILED")
-        echo "$BUILD_OUTPUT" | tee eas-build-output.json
-        BUILD_ID=$(echo "$BUILD_OUTPUT" | jq -r '.id // empty' 2>/dev/null || echo "")
-        if [ -n "$BUILD_ID" ]; then
+        echo "Starting EAS build..."
+        npx eas build -p android --profile production --non-interactive --json > eas-build-output.json 2>&1 || {
+          echo "EAS build command failed, checking output..."
+          cat eas-build-output.json || echo "No output file created"
+          exit 1
+        }
+        echo "Build output:"
+        cat eas-build-output.json
+        
+        # Extract build ID from JSON output
+        BUILD_ID=$(jq -r '.id // empty' eas-build-output.json 2>/dev/null || echo "")
+        if [ -n "$BUILD_ID" ] && [ "$BUILD_ID" != "null" ]; then
           echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
-          echo "Build started with ID: $BUILD_ID"
+          echo "✅ Build started successfully with ID: $BUILD_ID"
+          echo "View build at: https://expo.dev/accounts/[your-account]/builds/$BUILD_ID"
         else
-          echo "Build submission may have failed or requires manual check"
+          echo "⚠️ Could not extract build ID from output"
+          echo "Build output may need manual review"
+          cat eas-build-output.json
         fi
       continue-on-error: true
 
@@ -338,27 +349,51 @@ jobs:
       working-directory: ./frontend
       run: |
         BUILD_ID="${{ steps.easbuild.outputs.build_id }}"
-        if [ -n "$BUILD_ID" ]; then
-          echo "Waiting for build $BUILD_ID to complete..."
+        if [ -n "$BUILD_ID" ] && [ "$BUILD_ID" != "null" ]; then
+          echo "⏳ Waiting for build $BUILD_ID to complete..."
+          echo "This may take 10-30 minutes. Build status:"
           npx eas build:wait --id "$BUILD_ID" --timeout 3600 || echo "Build wait timeout or failed"
+          echo "✅ Build completed (or timed out)"
         else
-          echo "No build ID available, skipping wait"
+          echo "⚠️ No build ID available, skipping wait"
         fi
       continue-on-error: true
+      timeout-minutes: 60
 
     - name: Fetch latest EAS build info (JSON)
       id: easstatus
       working-directory: ./frontend
       run: |
-        npx eas build:list --limit 1 --platform android --json > eas-latest.json || echo "[]" > eas-latest.json
+        echo "Fetching latest EAS builds..."
+        npx eas build:list --limit 5 --platform android --json > eas-latest.json || echo "[]" > eas-latest.json
+        echo "Build list:"
         cat eas-latest.json
-        BUILD_URL=$(jq -r '.[0].artifacts.buildUrl // .[0].webUrl // empty' eas-latest.json 2>/dev/null || echo "")
-        if [ -n "$BUILD_URL" ]; then
-          echo "url=$BUILD_URL" >> $GITHUB_OUTPUT
-          echo "Build URL: $BUILD_URL"
+        
+        BUILD_COUNT=$(jq '. | length' eas-latest.json 2>/dev/null || echo "0")
+        echo "Found $BUILD_COUNT build(s)"
+        
+        if [ "$BUILD_COUNT" -gt "0" ]; then
+          BUILD_URL=$(jq -r '.[0].artifacts.buildUrl // .[0].webUrl // empty' eas-latest.json 2>/dev/null || echo "")
+          BUILD_ID=$(jq -r '.[0].id // empty' eas-latest.json 2>/dev/null || echo "")
+          BUILD_STATUS=$(jq -r '.[0].status // empty' eas-latest.json 2>/dev/null || echo "")
+          
+          if [ -n "$BUILD_URL" ]; then
+            echo "url=$BUILD_URL" >> $GITHUB_OUTPUT
+            echo "✅ Build URL: $BUILD_URL"
+          else
+            echo "url=" >> $GITHUB_OUTPUT
+            echo "⚠️ No build URL available yet"
+          fi
+          
+          if [ -n "$BUILD_ID" ]; then
+            echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
+            echo "Build ID: $BUILD_ID"
+            echo "Build Status: $BUILD_STATUS"
+            echo "View build at: https://expo.dev/accounts/[your-account]/builds/$BUILD_ID"
+          fi
         else
           echo "url=" >> $GITHUB_OUTPUT
-          echo "No build URL available yet"
+          echo "⚠️ No builds found. Check Expo dashboard: https://expo.dev/accounts/[your-account]/builds"
         fi
       continue-on-error: true
 
