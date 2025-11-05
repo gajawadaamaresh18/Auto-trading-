@@ -4,6 +4,7 @@ Security Module
 Authentication and security utilities for the Auto Trading App.
 """
 
+import os
 from datetime import datetime, timedelta
 from typing import Optional, Union
 from uuid import UUID
@@ -17,7 +18,7 @@ from app.core.database import get_db
 from app.models import User
 
 # Security configuration
-SECRET_KEY = "your-secret-key-here"  # In production, use environment variable
+SECRET_KEY = os.getenv("SECRET_KEY", "change-me-in-production")  # Use environment variable in production
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

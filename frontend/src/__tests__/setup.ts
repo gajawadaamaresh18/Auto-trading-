@@ -53,11 +53,13 @@ jest.mock('react-native-svg', () => ({
   Text: 'Text',
 }));
 
-// Mock styled-components/native ThemeProvider to pass-through children
+// Mock styled-components/native ThemeProvider properly
+// Use actual implementation but ensure it works in test environment
 jest.mock('styled-components/native', () => {
-  const actual = jest.requireActual('styled-components');
-  const ThemeProvider = ({ children }: any) => children;
-  return { ...actual, ThemeProvider };
+  const actual = jest.requireActual('styled-components/native');
+  // ThemeProvider needs to work with styled-components' internal theme system
+  // Keep the actual implementation but ensure it works in tests
+  return actual;
 });
 
 // Mock Dimensions

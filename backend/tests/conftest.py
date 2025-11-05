@@ -78,7 +78,7 @@ def client(db_session: Session) -> Generator[TestClient, None, None]:
 
 @pytest.fixture(scope="function")
 def async_client(db_session: Session) -> TestClient:
-    """Create a test client for API testing."""
+    """Create a test client for API testing (synchronous TestClient)."""
     def override_get_db():
         try:
             yield db_session
