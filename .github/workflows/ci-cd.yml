@@ -71,7 +71,7 @@ jobs:
     
     services:
       postgres:
-        image: postgres:${{ env.POSTGRES_VERSION }}
+        image: postgres:14
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test_db
@@ -84,7 +84,7 @@ jobs:
           - 5432:5432
           
       redis:
-        image: redis:${{ env.REDIS_VERSION }}
+        image: redis:6
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -253,7 +253,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
     env:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-      NODE_VERSION: ${{ env.NODE_VERSION }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -261,7 +260,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ env.NODE_VERSION }}
+        node-version: '18'
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
 
@@ -337,7 +336,7 @@ jobs:
     
     services:
       postgres:
-        image: postgres:${{ env.POSTGRES_VERSION }}
+        image: postgres:14
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test_db
