@@ -333,16 +333,21 @@ jobs:
           echo "✅ Project is already linked"
           npx eas project:info
         else
-          echo "⚠️ Project not linked, attempting to link..."
-          # Try to link the project (will use app.json slug)
-          npx eas project:init --non-interactive || echo "Project init may have failed"
+          echo "⚠️ Project not linked, will be created during build configuration..."
+          echo "Using app slug: auto-trading"
+          echo "Account: gajawadaamaresh18"
         fi
 
     - name: Configure EAS (Android)
       working-directory: ./frontend
       run: |
         echo "Configuring EAS build for Android..."
-        npx eas build:configure --platform android --non-interactive || echo "Build configure completed with warnings"
+        echo "This will also initialize the project if not already linked..."
+        # eas build:configure will auto-create the project if it doesn't exist
+        npx eas build:configure --platform android --non-interactive || {
+          echo "⚠️ Build configure may have failed, but continuing..."
+          echo "Project will be auto-created when build starts"
+        }
 
     - name: Verify Project Info
       working-directory: ./frontend
@@ -363,6 +368,22 @@ jobs:
         echo "Build Type: app-bundle (AAB)"
         echo ""
         
+        # Check if project is linked, if not, try to initialize it first
+        if ! npx eas project:info 2>/dev/null; then
+          echo "⚠️ Project not linked, attempting to initialize..."
+          # Try to create project by running build:configure which may auto-create it
+          npx eas build:configure --platform android --non-interactive 2>&1 || echo "Build configure may have failed, continuing..."
+          
+          # If still not linked, try to initialize with app.json slug
+          if ! npx eas project:info 2>/dev/null; then
+            echo "⚠️ Project still not linked, build command will attempt to create it"
+            echo "Note: In non-interactive mode, build may fail if project doesn't exist"
+            echo "The project will be created based on app.json slug: auto-trading"
+          fi
+        fi
+        
+        echo ""
+        echo "Running EAS build..."
         # Run EAS build and capture output
         npx eas build -p android --profile production --non-interactive --json > eas-build-output.json 2>&1
         BUILD_EXIT_CODE=$?
@@ -373,7 +394,15 @@ jobs:
         cat eas-build-output.json
         echo ""
         
+        # Check if error is due to project not being initialized
         if [ $BUILD_EXIT_CODE -ne 0 ]; then
+          ERROR_MSG=$(cat eas-build-output.json 2>/dev/null | jq -r '.message // .error // empty' 2>/dev/null || echo "")
+          if echo "$ERROR_MSG" | grep -qi "project.*not.*configured\|project.*not.*initialized\|must configure.*project"; then
+            echo "⚠️ Project not initialized. Attempting to create project manually..."
+            echo "This may require manual intervention. Please check your Expo dashboard."
+            echo "Error: $ERROR_MSG"
+            exit 1
+          fi
           echo "❌ EAS build command failed!"
           echo "Exit code: $BUILD_EXIT_CODE"
           echo "Please check the output above for errors"
