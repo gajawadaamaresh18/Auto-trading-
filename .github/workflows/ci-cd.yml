@@ -314,35 +314,100 @@ jobs:
         eas-version: latest
         token: ${{ secrets.EXPO_TOKEN }}
 
+    - name: Verify Expo Authentication
+      working-directory: ./frontend
+      run: |
+        echo "Verifying Expo authentication..."
+        npx eas whoami || {
+          echo "❌ Authentication failed! Check your EXPO_TOKEN"
+          exit 1
+        }
+        echo "✅ Authenticated successfully"
+
+    - name: Link/Configure Expo Project
+      working-directory: ./frontend
+      run: |
+        echo "Checking project configuration..."
+        # Check if project is already linked
+        if npx eas project:info 2>/dev/null; then
+          echo "✅ Project is already linked"
+          npx eas project:info
+        else
+          echo "⚠️ Project not linked, attempting to link..."
+          # Try to link the project (will use app.json slug)
+          npx eas project:init --non-interactive || echo "Project init may have failed"
+        fi
+
     - name: Configure EAS (Android)
       working-directory: ./frontend
-      run: npx eas build:configure --platform android --non-interactive || true
+      run: |
+        echo "Configuring EAS build for Android..."
+        npx eas build:configure --platform android --non-interactive || echo "Build configure completed with warnings"
+
+    - name: Verify Project Info
+      working-directory: ./frontend
+      run: |
+        echo "Project Information:"
+        npx eas project:info || echo "Could not get project info"
+        echo ""
+        echo "App Configuration:"
+        cat app.json || echo "Could not read app.json"
 
     - name: Trigger EAS Android production build (AAB)
       id: easbuild
       working-directory: ./frontend
       run: |
-        echo "Starting EAS build..."
-        npx eas build -p android --profile production --non-interactive --json > eas-build-output.json 2>&1 || {
-          echo "EAS build command failed, checking output..."
-          cat eas-build-output.json || echo "No output file created"
-          exit 1
-        }
+        echo "🚀 Starting EAS Android production build..."
+        echo "Platform: android"
+        echo "Profile: production"
+        echo "Build Type: app-bundle (AAB)"
+        echo ""
+        
+        # Run EAS build and capture output
+        npx eas build -p android --profile production --non-interactive --json > eas-build-output.json 2>&1
+        BUILD_EXIT_CODE=$?
+        
+        echo "Build command exit code: $BUILD_EXIT_CODE"
+        echo ""
         echo "Build output:"
         cat eas-build-output.json
+        echo ""
+        
+        if [ $BUILD_EXIT_CODE -ne 0 ]; then
+          echo "❌ EAS build command failed!"
+          echo "Exit code: $BUILD_EXIT_CODE"
+          echo "Please check the output above for errors"
+          exit 1
+        fi
         
         # Extract build ID from JSON output
         BUILD_ID=$(jq -r '.id // empty' eas-build-output.json 2>/dev/null || echo "")
-        if [ -n "$BUILD_ID" ] && [ "$BUILD_ID" != "null" ]; then
+        BUILD_STATUS=$(jq -r '.status // empty' eas-build-output.json 2>/dev/null || echo "")
+        
+        if [ -n "$BUILD_ID" ] && [ "$BUILD_ID" != "null" ] && [ "$BUILD_ID" != "" ]; then
           echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
-          echo "✅ Build started successfully with ID: $BUILD_ID"
-          echo "View build at: https://expo.dev/accounts/[your-account]/builds/$BUILD_ID"
+          echo "✅ Build submitted successfully!"
+          echo "   Build ID: $BUILD_ID"
+          echo "   Status: $BUILD_STATUS"
+          echo "   View at: https://expo.dev/builds/$BUILD_ID"
+          echo ""
+          echo "🔗 Check your builds at: https://expo.dev/accounts/[your-account]/builds"
         else
           echo "⚠️ Could not extract build ID from output"
-          echo "Build output may need manual review"
-          cat eas-build-output.json
+          echo "Build may not have been submitted"
+          echo ""
+          echo "Checking if output is valid JSON:"
+          if jq empty eas-build-output.json 2>/dev/null; then
+            echo "Output is valid JSON, but no build ID found"
+            echo "Full output:"
+            jq . eas-build-output.json
+          else
+            echo "Output is not valid JSON"
+            echo "Raw output:"
+            cat eas-build-output.json
+          fi
+          exit 1
         fi
-      continue-on-error: true
 
     - name: Wait for EAS build (if started)
       if: steps.easbuild.outputs.build_id != ''
