@@ -337,27 +337,60 @@ jobs:
           SLUG="auto-trading"
           ACCOUNT_NAME="gajawadaamaresh18"
           
-          echo "Attempting to create project: @${ACCOUNT_NAME}/${SLUG}"
+          echo "Creating project: @${ACCOUNT_NAME}/${SLUG}"
+          echo ""
+          echo "Note: EAS build in non-interactive mode requires the project to exist first."
+          echo "Attempting to create project using EAS CLI..."
           
-          # Try to create project using eas init with --id flag
-          # First, try to get existing project ID from Expo API
-          PROJECT_INFO=$(curl -s -X GET "https://api.expo.dev/v2/projects/${ACCOUNT_NAME}/${SLUG}" \
+          # Try to create the project by running a build which should auto-create it
+          # But first, we need to initialize the project
+          # Since eas project:init requires interactive mode, we'll use a workaround:
+          # Create the project via the Expo GraphQL API
+          
+          echo "Attempting to create project via Expo API..."
+          
+          # Use Expo GraphQL API to create the project
+          GRAPHQL_QUERY='{"query":"mutation CreateProject($accountName: String!, $slug: String!) { project: createOrUpdateProject(accountName: $accountName, slug: $slug, projectInput: { name: \"Auto Trading\", slug: $slug }) { id slug name account { name } } }","variables":{"accountName":"'"$ACCOUNT_NAME"'","slug":"'"$SLUG"'"}}'
+          
+          RESPONSE=$(curl -s -X POST "https://api.expo.dev/graphql" \
             -H "Authorization: Bearer ${{ secrets.EXPO_TOKEN }}" \
-            -H "Expo-API-Version: 1" 2>&1 || echo "")
+            -H "Content-Type: application/json" \
+            -d "$GRAPHQL_QUERY" 2>&1 || echo "")
           
-          if echo "$PROJECT_INFO" | grep -qi "\"id\""; then
-            PROJECT_ID=$(echo "$PROJECT_INFO" | jq -r '.id // empty' 2>/dev/null || echo "")
-            if [ -n "$PROJECT_ID" ] && [ "$PROJECT_ID" != "null" ]; then
-              echo "✅ Project exists with ID: $PROJECT_ID"
-              echo "Linking project..."
-              npx eas project:init --id "$PROJECT_ID" --non-interactive || echo "Could not link project"
+          if [ -n "$RESPONSE" ]; then
+            echo "API Response: $RESPONSE"
+            # Check if project was created
+            if echo "$RESPONSE" | grep -qi "\"id\""; then
+              PROJECT_ID=$(echo "$RESPONSE" | jq -r '.data.project.id // empty' 2>/dev/null || echo "")
+              if [ -n "$PROJECT_ID" ] && [ "$PROJECT_ID" != "null" ]; then
+                echo "✅ Project created with ID: $PROJECT_ID"
+                echo "Linking project..."
+                npx eas project:init --id "$PROJECT_ID" --non-interactive || echo "Could not link project (may already be linked)"
+              fi
+            elif echo "$RESPONSE" | grep -qi "already exists\|exists"; then
+              echo "✅ Project already exists"
+              echo "Attempting to link..."
+              # Try to get project ID from list
+              PROJECT_LIST=$(npx eas project:list --non-interactive --json 2>/dev/null || echo "")
+              if [ -n "$PROJECT_LIST" ]; then
+                PROJECT_ID=$(echo "$PROJECT_LIST" | jq -r ".[] | select(.slug == \"$SLUG\" and .account.name == \"$ACCOUNT_NAME\") | .id" 2>/dev/null || echo "")
+                if [ -n "$PROJECT_ID" ] && [ "$PROJECT_ID" != "null" ]; then
+                  echo "Found project ID: $PROJECT_ID"
+                  npx eas project:init --id "$PROJECT_ID" --non-interactive || echo "Could not link project"
+                fi
+              fi
+            else
+              echo "⚠️ Project creation may have failed"
+              echo "Will attempt to create during build"
             fi
           else
-            echo "⚠️ Project does not exist yet"
-            echo "It will be created automatically when build starts"
-            echo "Using app slug: ${SLUG}"
-            echo "Account: ${ACCOUNT_NAME}"
+            echo "⚠️ API call failed"
+            echo "Will attempt to create during build"
           fi
+          
+          echo ""
+          echo "Using app slug: ${SLUG}"
+          echo "Account: ${ACCOUNT_NAME}"
         fi
         echo ""
         echo "App Configuration:"
