@@ -359,9 +359,15 @@ jobs:
         
         # Check if project is linked
         if ! npx eas project:info 2>/dev/null; then
-          echo "⚠️ Project not linked, build will attempt to create it"
-          echo "Note: The project will be auto-created based on app.json slug: auto-trading"
-          echo "Account: gajawadaamaresh18"
+          echo "⚠️ Project not linked"
+          echo "Attempting to create project during build..."
+          echo ""
+          echo "Note: If this fails, you need to create the project manually first:"
+          echo "  1. Visit: https://expo.dev/accounts/gajawadaamaresh18/projects"
+          echo "  2. Click 'Create Project'"
+          echo "  3. Use slug: auto-trading"
+          echo "  4. Or run locally: cd frontend && npx eas project:init"
+          echo ""
         else
           echo "✅ Project is linked"
           npx eas project:info
@@ -369,7 +375,6 @@ jobs:
         
         echo ""
         echo "Running EAS build..."
-        echo "Note: If project doesn't exist, it will be created automatically"
         echo ""
         
         # Run EAS build and capture output
@@ -391,10 +396,22 @@ jobs:
           if echo "$ERROR_MSG" | grep -qi "project.*not.*configured\|project.*not.*initialized\|must configure.*project\|EAS project not configured"; then
             echo "❌ Project not initialized!"
             echo ""
-            echo "The project needs to be created manually. Please:"
-            echo "1. Go to: https://expo.dev/accounts/gajawadaamaresh18/projects"
-            echo "2. Create a new project with slug: auto-trading"
-            echo "3. Or run: npx eas project:init (interactively)"
+            echo "The project needs to be created manually first. Please follow these steps:"
+            echo ""
+            echo "Option 1: Create via Expo Dashboard"
+            echo "  1. Visit: https://expo.dev/accounts/gajawadaamaresh18/projects"
+            echo "  2. Click 'Create Project'"
+            echo "  3. Use slug: auto-trading"
+            echo "  4. Name: Auto Trading"
+            echo ""
+            echo "Option 2: Create locally (interactive)"
+            echo "  1. cd frontend"
+            echo "  2. npx eas login"
+            echo "  3. npx eas project:init"
+            echo "  4. Select 'Create a new project'"
+            echo "  5. Use slug: auto-trading"
+            echo ""
+            echo "After creating the project, push again to trigger the build."
             echo ""
             echo "Error details:"
             echo "$ERROR_MSG"
