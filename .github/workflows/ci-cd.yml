@@ -347,6 +347,23 @@ jobs:
         echo "App Configuration:"
         cat app.json || echo "Could not read app.json"
 
+    - name: Setup Android Credentials
+      working-directory: ./frontend
+      run: |
+        echo "Checking Android credentials..."
+        # Check if credentials exist, if not, create them
+        if npx eas credentials 2>&1 | grep -qi "no credentials\|credentials not found"; then
+          echo "⚠️ Android credentials not found"
+          echo "Creating Android credentials..."
+          # Create credentials in non-interactive mode
+          echo "y" | npx eas credentials --platform android --non-interactive || {
+            echo "⚠️ Credentials creation may have failed, but continuing..."
+            echo "EAS will generate credentials automatically during build"
+          }
+        else
+          echo "✅ Android credentials exist"
+        fi
+
     - name: Trigger EAS Android production build (AAB)
       id: easbuild
       working-directory: ./frontend
@@ -412,6 +429,27 @@ jobs:
             echo "  5. Use slug: autotrading"
             echo ""
             echo "After creating the project, push again to trigger the build."
+            echo ""
+            echo "Error details:"
+            echo "$ERROR_MSG"
+            exit 1
+          elif echo "$ERROR_MSG" | grep -qi "keystore.*not.*supported\|generating.*keystore.*not supported\|credentials"; then
+            echo "❌ Android credentials need to be set up!"
+            echo ""
+            echo "The Android keystore needs to be generated. Please run:"
+            echo ""
+            echo "Option 1: Generate credentials locally (interactive)"
+            echo "  1. cd frontend"
+            echo "  2. npx eas credentials --platform android"
+            echo "  3. Select 'Set up a new keystore'"
+            echo "  4. This will generate the keystore on Expo servers"
+            echo ""
+            echo "Option 2: Generate via Expo Dashboard"
+            echo "  1. Visit: https://expo.dev/accounts/gajawadaamaresh18/projects/autotrading/credentials"
+            echo "  2. Go to Android section"
+            echo "  3. Click 'Generate new keystore'"
+            echo ""
+            echo "After generating credentials, push again to trigger the build."
             echo ""
             echo "Error details:"
             echo "$ERROR_MSG"
